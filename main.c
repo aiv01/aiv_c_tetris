@@ -29,9 +29,29 @@ int main(int argc, char **argv)
 	tetramino_t tetramino;
 	tetramino_init(&tetramino);
 
+	int timer = 1000;
+	Uint32 last_ticks = SDL_GetTicks();
+
 	for (;;)
 	{
 		SDL_Event event;
+
+		Uint32 current_ticks = SDL_GetTicks();
+		timer -= current_ticks - last_ticks;
+		last_ticks = current_ticks;
+
+		if (timer <= 0)
+		{
+			if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+			{
+				if (tetramino.y == -1)
+				{
+					goto cleanup4;
+				}
+				tetramino_init(&tetramino);
+			}
+			timer = 1000;
+		}
 
 		while (SDL_PollEvent(&event))
 		{
@@ -43,16 +63,25 @@ int main(int argc, char **argv)
 			{
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					tetramino_move_down(&tetramino, &map);
+					if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+					{
+						if (tetramino.y == -1)
+						{
+							goto cleanup4;
+						}
+						tetramino_init(&tetramino);
+					}
+					timer = 1000;
 				}
 			}
 		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
 		SDL_RenderClear(renderer);
 
-		//tetramino draw
+		// draw map
+		tetris_map_draw(&map, renderer, 30);
 
+		//tetramino draw
 		tetramino_draw(&tetramino, renderer, 30);
 
 		SDL_RenderPresent(renderer);
