@@ -100,17 +100,19 @@ TEST(tetramino_busy_cell)
 TEST(tetramino_fill_two_blocks)
 {
 	TETRAMINO_SETUP(1, 2);
-	tetramino_t tetramino2;
-	tetramino_init(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino, &tetris_map);
 	tetramino_move_down(&tetramino, &tetris_map);
 	tetramino_move_down(&tetramino, &tetris_map);
 
 	ASSERT_THAT(tetramino.y == 1);
 
+	tetramino_t tetramino2;
+	tetramino_init(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino2, &tetris_map);
+
+	SDL_Log("%d", tetramino2.y);
 
 	ASSERT_THAT(tetramino2.y == 0);
 }
@@ -126,19 +128,31 @@ TEST(tetramino_dead)
 
 TEST(check_row_filled)
 {
-	// TETRAMINO_SETUP(2,2);
-	// tetramino_t tetramino2;
-	// tetramino_move_down(&tetramino, &tetris_map);
-	// tetramino_move_down(&tetramino, &tetris_map);
+	TETRAMINO_SETUP(2, 2);
+	tetramino_move_left(&tetramino, &tetris_map);
+	tetramino_move_down(&tetramino, &tetris_map);
+	tetramino_move_down(&tetramino, &tetris_map);
 
+	// tetramino_t tetramino2;
+	// tetramino_init(&tetramino2, &tetris_map);
 	// tetramino_move_right(&tetramino2, &tetris_map);
 	// tetramino_move_down(&tetramino2, &tetris_map);
 	// tetramino_move_down(&tetramino2, &tetris_map);
 
-	// tetris_check_row_fill(&tetris_map);
+	SDL_Log("%d", tetris_map.cell[0]);
+	SDL_Log("%d", tetris_map.cell[1]);
+	SDL_Log("%d", tetris_map.cell[2]);
+	SDL_Log("%d", tetris_map.cell[3]);
 
-	// ASSERT_THAT(tetris_map->cell[2] == 0);
-	// ASSERT_THAT(tetris_map->cell[3] == 0);
+	// tetris_row_check_fill(&tetris_map);
+
+	// SDL_Log("%d", tetris_map.cell[0]);
+	// SDL_Log("%d", tetris_map.cell[1]);
+	// SDL_Log("%d", tetris_map.cell[2]);
+	// SDL_Log("%d", tetris_map.cell[3]);
+
+	// ASSERT_THAT(tetris_map.cell[2] == 1);
+	// ASSERT_THAT(tetris_map.cell[3] == 1);
 }
 
 TEST(tetramino_map_init)
@@ -163,6 +177,7 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_move_left_blocked);
 	RUN_TEST(tetramino_move_left);
 	RUN_TEST(tetramino_move_left_multiple);
+	RUN_TEST(check_row_filled);
 	PRINT_TEST_RESULTS();
 	return 0;
 }

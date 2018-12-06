@@ -122,3 +122,8 @@ void tetris_row_destroy(struct tetris_map *tetris_map, int row)
     for (i = row_index; i < (row_index + tetris_map->width); i++)
         tetris_map->cell[i] = 0;
 }
+
+void tetris_collapse_down(struct tetris_map *tetris_map, int at_row)
+{
+    // int row_index 
+}
