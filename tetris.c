@@ -109,8 +109,8 @@ void tetris_row_check_fill(struct tetris_map *tetris_map)
         }
         // SDL_Log("row %d has %d\n tetramini", row, tetramini);
         
-        if (tetramini >= tetris_map->width)
-            tetris_row_destroy(tetris_map, row);
+        // if (tetramini >= tetris_map->width)
+        //     tetris_row_destroy(tetris_map, row);
     }
 }
 
