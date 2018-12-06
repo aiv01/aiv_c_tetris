@@ -47,6 +47,34 @@ TEST(tetramino_move_right_multiple)
 	ASSERT_THAT(tetramino.x == 1);
 }
 
+TEST(tetramino_move_left_blocked)
+{
+	TETRAMINO_SETUP(1,1);
+	tetramino_move_left(&tetramino, &tetris_map);
+
+	ASSERT_THAT(tetramino.x == 0);
+}
+
+TEST(tetramino_move_left)
+{
+	TETRAMINO_SETUP(2,1);
+	tetramino_move_right(&tetramino, &tetris_map);
+	tetramino_move_left(&tetramino, &tetris_map);
+
+	ASSERT_THAT(tetramino.x == 0);
+}
+
+TEST(tetramino_move_left_multiple)
+{
+	TETRAMINO_SETUP(3,1);
+	tetramino_move_right(&tetramino, &tetris_map);
+	tetramino_move_right(&tetramino, &tetris_map);
+	tetramino_move_left(&tetramino, &tetris_map);
+	tetramino_move_left(&tetramino, &tetris_map);
+
+	ASSERT_THAT(tetramino.x == 0);
+}
+
 TEST(tetramino_move_down_wrong_value)
 {
 	TETRAMINO_SETUP(1, 1);
@@ -115,6 +143,9 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_move_right);
 	RUN_TEST(tetramino_move_right_blocked);
 	RUN_TEST(tetramino_move_right_multiple);
+	RUN_TEST(tetramino_move_left_blocked);
+	RUN_TEST(tetramino_move_left);
+	RUN_TEST(tetramino_move_left_multiple);
 	PRINT_TEST_RESULTS();
 	return 0;
 }
