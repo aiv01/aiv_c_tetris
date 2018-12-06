@@ -17,9 +17,9 @@ main.o: main.c
 	$(CPPCHECK) $^
 	$(CC) -c -o $@ $(CFLAGS) $^
 
-tetris.o: tetris.c
+tetris.o: tetris.c tetris.h
 	$(CPPCHECK) $^
-	$(CC) -c -o $@ $(CFLAGS) $^
+	$(CC) -c -o $@ $(CFLAGS) $<
 
 tests.o: tests.c
 	$(CPPCHECK) $^
