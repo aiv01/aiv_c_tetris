@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 						}
 						tetramino_init(&tetramino, &map);
 					}
-					timer = 1000;
+					timer = 100;
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT)
 				{

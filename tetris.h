@@ -33,4 +33,5 @@ void tetris_map_init(struct tetris_map *tetris_map, int width, int height);
 
 void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size);
 void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size);
-
+void tetris_row_check_fill(struct tetris_map *tetris_map);
+void tetris_row_destroy(struct tetris_map *tetris_map, int row);

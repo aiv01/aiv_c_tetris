@@ -49,6 +49,8 @@ int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_m
         return TETRAMINO_DEAD;
     }
 
+    tetris_row_check_fill(tetris_map);
+
     return TETRAMINO_OK;
 }
 
@@ -88,4 +90,35 @@ void tetris_map_init(struct tetris_map *tetris_map, int width, int height)
     memset(tetris_map->cell, 0, size);
     tetris_map->width = width;
     tetris_map->height = height;
+}
+
+void tetris_row_check_fill(struct tetris_map *tetris_map)
+{
+    int row;
+    int column;
+
+    // For each row of the Tetris map
+    for (row = 0; row < tetris_map->height; row++)
+    {   
+        int tetramini = 0;
+        for (column = 0; column < tetris_map->width; column++)
+        {
+            // We count how many tetramini are in the row
+            if (tetris_map->cell[(row * tetris_map->width) + column] == 1)
+                tetramini += 1;
+        }
+        // SDL_Log("row %d has %d\n tetramini", row, tetramini);
+        
+        if (tetramini >= tetris_map->width)
+            tetris_row_destroy(tetris_map, row);
+    }
+}
+
+void tetris_row_destroy(struct tetris_map *tetris_map, int row)
+{
+    int row_index = tetris_map->width * row;
+
+    int i;
+    for (i = row_index; i < (row_index + tetris_map->width); i++)
+        tetris_map->cell[i] = 0;
 }
