@@ -1,4 +1,7 @@
 #include "tetris.h"
+
+int gino = 0;
+
 int main(int argc, char **argv)
 {
 	int ret = 0;

@@ -6,6 +6,29 @@ void tetramino_init(struct tetramino *tetramino, struct tetris_map *tetris_map)
     tetramino->y = -1;
 }
 
+int tetramino_move_all_down(struct tetramino tetramini[4], struct tetris_map *tetris_map)
+{
+    // TODO split tetramino_move_down in check/move
+    int i;
+    // first check
+    int can_move = 1;
+    for (i = 0; i < 4; i++)
+    {
+        // check
+    }
+
+    // TODO check for DEAD
+    if (!can_move)
+        return TETRAMINO_OK;
+
+    for (i = 0; i < 4; i++)
+    {
+        // move
+    }
+
+    return TETRAMINO_OK;
+}
+
 int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
