@@ -29,6 +29,22 @@ int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_m
     return TETRAMINO_OK;
 }
 
+int tetramino_move_right(struct tetramino *tetramino, struct tetris_map *tetris_map)
+{
+    if (tetramino->x >= tetris_map->width - 1)
+    {
+        return TETRAMINO_OK;
+    }
+
+    int right_index = tetris_map->width * tetramino->y + (tetramino->x + 1);
+    if (!tetris_map->cell[right_index])
+    {
+        tetramino->x++;
+    }
+
+    return TETRAMINO_OK;
+}
+
 void tetris_map_init(struct tetris_map *tetris_map, int width, int height)
 {
     int size = sizeof(int) * width * height;

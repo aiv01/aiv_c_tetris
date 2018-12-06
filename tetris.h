@@ -23,6 +23,8 @@ typedef struct tetris_map tetris_map_t;
 
 int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_map);
 
+int tetramino_move_right(struct tetramino *tetramino, struct tetris_map *tetris_map);
+
 void tetramino_init(struct tetramino *tetramino, struct tetris_map *tetris_map);
 
 void tetris_map_init(struct tetris_map *tetris_map, int width, int height);

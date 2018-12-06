@@ -73,6 +73,10 @@ int main(int argc, char **argv)
 					}
 					timer = 1000;
 				}
+				else if (event.key.keysym.sym == SDLK_RIGHT)
+				{
+					tetramino_move_right(&tetramino, &map);
+				}
 			}
 		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
