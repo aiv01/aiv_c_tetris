@@ -124,6 +124,23 @@ TEST(tetramino_dead)
 	ASSERT_THAT(tetramino_move_down(&tetramino, &tetris_map) == TETRAMINO_DEAD);
 }
 
+TEST(check_row_filled)
+{
+	// TETRAMINO_SETUP(2,2);
+	// tetramino_t tetramino2;
+	// tetramino_move_down(&tetramino, &tetris_map);
+	// tetramino_move_down(&tetramino, &tetris_map);
+
+	// tetramino_move_right(&tetramino2, &tetris_map);
+	// tetramino_move_down(&tetramino2, &tetris_map);
+	// tetramino_move_down(&tetramino2, &tetris_map);
+
+	// tetris_check_row_fill(&tetris_map);
+
+	// ASSERT_THAT(tetris_map->cell[2] == 0);
+	// ASSERT_THAT(tetris_map->cell[3] == 0);
+}
+
 TEST(tetramino_map_init)
 {
 	tetris_map_t tetris_map;
