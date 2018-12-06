@@ -21,6 +21,7 @@ void tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_
 void tetramino_init(struct tetramino *tetramino);
 
 void tetris_map_init(struct tetris_map *tetris_map, int height);
+void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size);
 
 
 

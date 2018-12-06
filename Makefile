@@ -10,7 +10,7 @@ ifeq ($(OS),Windows_NT)
 	BINARY_TESTS:=$(BINARY_TESTS).exe
 endif
 
-tetris: main.o tetris.o
+tetris: main.o tetris.o gfx.o
 	$(CC) -o $(BINARY) $(LDFLAGS) $^
 
 main.o: main.c
@@ -18,6 +18,10 @@ main.o: main.c
 	$(CPPCHECK) $^
 
 tetris.o: tetris.c tetris.h
+	$(CC) -c -o $@ $(CFLAGS) $<
+	$(CPPCHECK) $^
+
+gfx.o: gfx.c tetris.h
 	$(CC) -c -o $@ $(CFLAGS) $<
 	$(CPPCHECK) $^
 
