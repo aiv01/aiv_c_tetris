@@ -30,6 +30,9 @@ int main(int argc, char **argv)
 	tetramino_t tetramino;
 	tetramino_init(&tetramino, &map);
 
+	tetramino_t tetramino_group[4];
+	tetramino_cube_init(tetramino_group, &map);
+
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
 
@@ -43,12 +46,15 @@ int main(int argc, char **argv)
 
 		if (timer <= 0)
 		{
+			// if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 			if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
 			{
 				if (tetramino.y == -1)
 				{
 					goto cleanup4;
 				}
+
+				// tetramino_cube_init(tetramino_group, &map);
 				tetramino_init(&tetramino, &map);
 			}
 			timer = 1000;
@@ -64,12 +70,14 @@ int main(int argc, char **argv)
 			{
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
+					// if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 					if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
 					{
 						if (tetramino.y == -1)
 						{
 							goto cleanup4;
 						}
+						// tetramino_cube_init(tetramino_group, &map);
 						tetramino_init(&tetramino, &map);
 					}
 					timer = 1000;

@@ -6,7 +6,22 @@ void tetramino_init(struct tetramino *tetramino, struct tetris_map *tetris_map)
     tetramino->y = -1;
 }
 
-int tetramino_move_all_down(struct tetramino tetramini[4], struct tetris_map *tetris_map)
+void tetramino_cube_init(tetramino_t tetramini[4], struct tetris_map *tetris_map)
+{
+    tetramini[0].x = 0;
+    tetramini[0].y = 0;
+
+    tetramini[1].x = 1;
+    tetramini[1].y = 0;
+
+    tetramini[2].x = 0;
+    tetramini[2].y = 1;
+
+    tetramini[3].x = 1;
+    tetramini[3].y = 1;
+}
+
+int tetramino_group_move_down(struct tetramino tetramini[4], struct tetris_map *tetris_map)
 {
     // TODO split tetramino_move_down in check/move
     int i;
@@ -14,7 +29,8 @@ int tetramino_move_all_down(struct tetramino tetramini[4], struct tetris_map *te
     int can_move = 1;
     for (i = 0; i < 4; i++)
     {
-        // check
+        if(!tetramino_move_down_check(&tetramini[i], tetris_map))
+            can_move = 0;
     }
 
     // TODO check for DEAD
@@ -23,7 +39,7 @@ int tetramino_move_all_down(struct tetramino tetramini[4], struct tetris_map *te
 
     for (i = 0; i < 4; i++)
     {
-        // move
+        tetramino_move_down_act(&tetramini[i], tetris_map);
     }
 
     return TETRAMINO_OK;
@@ -33,11 +49,46 @@ int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_m
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+    
     if (tetramino->y + 1 >= tetris_map->height)
     {
         tetris_map->cell[current_index] = 1;
         return TETRAMINO_DEAD;
     }
+
+    if (tetris_map->cell[next_index] == 0)
+    {
+        tetramino->y += 1;
+    }
+    else
+    {
+        tetris_map->cell[current_index] = 1;
+        return TETRAMINO_DEAD;
+    }
+
+    tetris_row_check_fill(tetris_map);
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_down_check(tetramino_t *tetramino, struct tetris_map *tetris_map)
+{
+    int current_index = tetris_map->width * tetramino->y + tetramino->x;
+    // int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+
+    if (tetramino->y + 1 >= tetris_map->height)
+    {
+        tetris_map->cell[current_index] = 1;
+        return TETRAMINO_DEAD;
+    }
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_down_act(tetramino_t *tetramino, struct tetris_map *tetris_map)
+{
+    int current_index = tetris_map->width * tetramino->y + tetramino->x;
+    int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
 
     if (tetris_map->cell[next_index] == 0)
     {
