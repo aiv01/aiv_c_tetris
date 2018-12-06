@@ -68,6 +68,18 @@ int tetramino_move_right(struct tetramino *tetramino, struct tetris_map *tetris_
     return TETRAMINO_OK;
 }
 
+int tetramino_move_left(struct tetramino *tetramino, struct tetris_map *tetris_map)
+{
+    if (tetramino->x <= 0)
+    {
+        return TETRAMINO_OK;       
+    }
+
+    tetramino->x--;
+    
+    return TETRAMINO_OK;
+}
+
 void tetris_map_init(struct tetris_map *tetris_map, int width, int height)
 {
     int size = sizeof(int) * width * height;
