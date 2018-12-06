@@ -14,16 +14,16 @@ tetris: main.o tetris.o
 	$(CC) -o $(BINARY) $(LDFLAGS) $^
 
 main.o: main.c
-	$(CPPCHECK) $^
 	$(CC) -c -o $@ $(CFLAGS) $^
+	$(CPPCHECK) $^
 
 tetris.o: tetris.c tetris.h
-	$(CPPCHECK) $^
 	$(CC) -c -o $@ $(CFLAGS) $<
+	$(CPPCHECK) $^
 
 tests.o: tests.c
-	$(CPPCHECK) $^
 	$(CC) -c -o $@ $(CFLAGS) $^
+	$(CPPCHECK) $^
 
 test: tests.o tetris.o
 	$(CC) -o $(BINARY_TESTS) $(LDFLAGS) $^
