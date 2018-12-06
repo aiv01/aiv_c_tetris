@@ -126,6 +126,7 @@ TEST(tetramino_dead)
 	ASSERT_THAT(tetramino_move_down(&tetramino, &tetris_map) == TETRAMINO_DEAD);
 }
 
+// Why is this test passing?
 TEST(check_row_filled_1x1)
 {
 	TETRAMINO_SETUP(1, 1);
@@ -134,6 +135,7 @@ TEST(check_row_filled_1x1)
 	ASSERT_THAT(tetris_map.cell[0] == 0);
 }
 
+// Why is this test passing?
 TEST(check_row_filled_2x2)
 {
 	TETRAMINO_SETUP(2, 2);
@@ -146,7 +148,7 @@ TEST(check_row_filled_2x2)
 	tetramino_move_right(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino2, &tetris_map);
 	tetramino_move_down(&tetramino2, &tetris_map);
-	
+
 	ASSERT_THAT(tetris_map.cell[2] == 0);
 	ASSERT_THAT(tetris_map.cell[3] == 0);
 }
