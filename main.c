@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 			{
 				for (int i = 0; i < TETRAMINI; i++)
 				{
-					if (tetramino_group[i].y == -1)
+					if (tetramino_group[i].y == 0)
 					{
 						goto cleanup4;
 					}
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 					{
 						for (int i = 0; i < TETRAMINI; i++)
 						{
-							if (tetramino_group[i].y == -1)
+							if (tetramino_group[i].y == 0)
 							{
 								goto cleanup4;
 							}

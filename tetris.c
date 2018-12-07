@@ -8,16 +8,18 @@ void tetramino_init(tetramino_t *tetramino, tetris_map_t *tetris_map)
 
 void tetramino_cube_init(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
 {
-    tetramini[0].x = 0;
+    int half_screen = tetris_map->width / 2;
+
+    tetramini[0].x = half_screen - 1;
     tetramini[0].y = 0;
 
-    tetramini[1].x = 1;
+    tetramini[1].x = half_screen;
     tetramini[1].y = 0;
 
-    tetramini[2].x = 0;
+    tetramini[2].x = half_screen - 1;
     tetramini[2].y = 1;
 
-    tetramini[3].x = 1;
+    tetramini[3].x = half_screen;
     tetramini[3].y = 1;
 }
 
