@@ -27,10 +27,8 @@ int main(int argc, char **argv)
 
 	tetris_map_t map;
 	tetris_map_init(&map, 10, 20);
-	// tetramino_t tetramino;
-	// tetramino_init(&tetramino, &map);
 
-	tetramino_t tetramino_group[4];
+	tetramino_t tetramino_group[TETRAMINI];
 	tetramino_cube_init(tetramino_group, &map);
 
 	int timer = 1000;
