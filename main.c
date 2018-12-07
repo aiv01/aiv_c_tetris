@@ -5,6 +5,8 @@
 // * Add shifting when a row is cleared
 // * Each tetramino should have different colors
 // * Add rotations for the tetraminos
+// * Add sfx
+// * Add music
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
 // * Optional: add animations?
 /* -------------------------------------------------------------------------------- */
