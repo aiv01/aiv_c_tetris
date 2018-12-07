@@ -6,7 +6,7 @@ void tetramino_init(tetramino_t *tetramino, tetris_map_t *tetris_map)
     tetramino->y = -1;
 }
 
-void tetramino_cube_init(tetramino_t tetramini[4], tetris_map_t *tetris_map)
+void tetramino_cube_init(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
 {
     tetramini[0].x = 0;
     tetramini[0].y = 0;
@@ -21,22 +21,47 @@ void tetramino_cube_init(tetramino_t tetramini[4], tetris_map_t *tetris_map)
     tetramini[3].y = 1;
 }
 
-int tetramino_group_move_down(tetramino_t tetramini[4], tetris_map_t *tetris_map)
+int tetramino_group_move_down(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
 {
-    int i;
-    int can_move = 1;
-    for (i = 0; i < 4; i++)
+    for (int i = 0; i < TETRAMINI; i++)
     {
-        can_move = !tetramino_move_down_check(&tetramini[i], tetris_map);
+        if (tetramino_move_down_check(&tetramini[i], tetris_map) == TETRAMINO_DEAD)
+        {
+            tetramini_to_map(tetramini, tetris_map);
+            return TETRAMINO_DEAD;
+        }
     }
 
-    if (!can_move)
-        return TETRAMINO_OK;
-
-    for (i = 0; i < 4; i++)
-    {
+    for (int i = 0; i < TETRAMINI; i++)
         tetramino_move_down_act(&tetramini[i], tetris_map);
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_group_move_right(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
+{
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        if (tetramino_move_right_check(&tetramini[i], tetris_map) == TETRAMINO_DEAD)
+            return TETRAMINO_DEAD;
     }
+
+    for (int i = 0; i < TETRAMINI; i++)
+        tetramino_move_right_act(&tetramini[i], tetris_map);
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_group_move_left(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
+{
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        if (tetramino_move_left_check(&tetramini[i], tetris_map) == TETRAMINO_DEAD)
+            return TETRAMINO_DEAD;
+    }
+
+    for (int i = 0; i < TETRAMINI; i++)
+        tetramino_move_left_act(&tetramini[i], tetris_map);
 
     return TETRAMINO_OK;
 }
@@ -45,7 +70,7 @@ int tetramino_move_down(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
-    
+
     if (tetramino->y + 1 >= tetris_map->height)
     {
         tetris_map->cell[current_index] = 1;
@@ -70,13 +95,16 @@ int tetramino_move_down(tetramino_t *tetramino, tetris_map_t *tetris_map)
 int tetramino_move_down_check(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
-    // int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+    int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
 
     if (tetramino->y + 1 >= tetris_map->height)
     {
         tetris_map->cell[current_index] = 1;
         return TETRAMINO_DEAD;
     }
+
+    if (tetris_map->cell[next_index] == 1)
+        return TETRAMINO_DEAD;
 
     return TETRAMINO_OK;
 }
@@ -101,6 +129,21 @@ int tetramino_move_down_act(tetramino_t *tetramino, tetris_map_t *tetris_map)
     return TETRAMINO_OK;
 }
 
+int tetramini_to_map(tetramino_t tetramini[TETRAMINI], tetris_map_t *tetris_map)
+{
+    int current_index;
+    int next_index;
+
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
+        next_index = tetris_map->width * (tetramini[i].y + 1) + tetramini[i].x;
+        tetris_map->cell[current_index] = 1;
+    }
+
+    return TETRAMINO_DEAD;
+}
+
 int tetramino_move_right(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     if (tetramino->x >= tetris_map->width - 1)
@@ -117,15 +160,48 @@ int tetramino_move_right(tetramino_t *tetramino, tetris_map_t *tetris_map)
     return TETRAMINO_OK;
 }
 
+int tetramino_move_right_check(tetramino_t *tetramino, tetris_map_t *tetris_map)
+{
+    if (tetramino->x >= tetris_map->width - 1)
+        return TETRAMINO_DEAD;
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_right_act(tetramino_t *tetramino, tetris_map_t *tetris_map)
+{
+    int right_index = tetris_map->width * tetramino->y + (tetramino->x + 1);
+    if (!tetris_map->cell[right_index])
+    {
+        tetramino->x++;
+    }
+
+    return TETRAMINO_OK;
+}
+
 int tetramino_move_left(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     if (tetramino->x <= 0)
     {
-        return TETRAMINO_OK;       
+        return TETRAMINO_OK;
     }
 
     tetramino->x--;
-    
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_left_check(tetramino_t *tetramino, tetris_map_t *tetris_map)
+{
+    if (tetramino->x <= 0)
+        return TETRAMINO_DEAD;
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_left_act(tetramino_t *tetramino, tetris_map_t *tetris_map)
+{
+    tetramino->x--;
     return TETRAMINO_OK;
 }
 
@@ -146,7 +222,7 @@ void tetris_row_check_fill(tetris_map_t *tetris_map)
 
     // For each row of the Tetris map
     for (row = 0; row < tetris_map->height; row++)
-    {   
+    {
         int tetramini = 0;
         for (column = 0; column < tetris_map->width; column++)
         {
@@ -155,7 +231,7 @@ void tetris_row_check_fill(tetris_map_t *tetris_map)
                 tetramini += 1;
         }
         // SDL_Log("row %d has %d\n tetramini", row, tetramini);
-        
+
         if (tetramini >= tetris_map->width)
             tetris_row_destroy(tetris_map, row);
     }
@@ -172,5 +248,5 @@ void tetris_row_destroy(tetris_map_t *tetris_map, int row)
 
 void tetris_collapse_down(tetris_map_t *tetris_map, int at_row)
 {
-    // int row_index 
+    // int row_index
 }

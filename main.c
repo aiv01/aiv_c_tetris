@@ -27,8 +27,8 @@ int main(int argc, char **argv)
 
 	tetris_map_t map;
 	tetris_map_init(&map, 10, 20);
-	tetramino_t tetramino;
-	tetramino_init(&tetramino, &map);
+	// tetramino_t tetramino;
+	// tetramino_init(&tetramino, &map);
 
 	tetramino_t tetramino_group[4];
 	tetramino_cube_init(tetramino_group, &map);
@@ -46,15 +46,16 @@ int main(int argc, char **argv)
 
 		if (timer <= 0)
 		{
-			// if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
 			if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 			{
-				if (tetramino.y == -1)
+				for (int i = 0; i < TETRAMINI; i++)
 				{
-					goto cleanup4;
+					if (tetramino_group[i].y == -1)
+					{
+						goto cleanup4;
+					}
 				}
 
-				// tetramino_init(&tetramino, &map);
 				tetramino_cube_init(tetramino_group, &map);
 			}
 			timer = 1000;
@@ -70,26 +71,27 @@ int main(int argc, char **argv)
 			{
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					// if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
 					if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 					{
-						if (tetramino.y == -1)
+						for (int i = 0; i < TETRAMINI; i++)
 						{
-							goto cleanup4;
+							if (tetramino_group[i].y == -1)
+							{
+								goto cleanup4;
+							}
 						}
-						// tetramino_init(&tetramino, &map);
+
 						tetramino_cube_init(tetramino_group, &map);
 					}
 					timer = 1000;
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					tetramino_move_right(&tetramino, &map);
+					tetramino_group_move_right(tetramino_group, &map);
 				}
-
 				else if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					tetramino_move_left(&tetramino, &map);
+					tetramino_group_move_left(tetramino_group, &map);
 				}
 			}
 		}
@@ -100,7 +102,6 @@ int main(int argc, char **argv)
 		tetris_map_draw(&map, renderer, 30);
 
 		//tetramino draw
-		// tetramino_draw(&tetramino, renderer, 30);
 		tetramino_group_draw(tetramino_group, renderer, 30);
 
 		SDL_RenderPresent(renderer);
