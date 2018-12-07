@@ -1,5 +1,14 @@
 #include "tetris.h"
 
+/* ------------------------------------- TODO ------------------------------------- */
+// * Add left and right movement collision that is not triggered on map tetraminos
+// * Add shifting when a row is cleared
+// * Each tetramino should have different colors
+// * Add rotations for the tetraminos
+// * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
+// * Optional: add animations?
+/* -------------------------------------------------------------------------------- */
+
 int main(int argc, char **argv)
 {
 	int ret = 0;
