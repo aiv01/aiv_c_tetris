@@ -46,16 +46,16 @@ int main(int argc, char **argv)
 
 		if (timer <= 0)
 		{
-			// if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
-			if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+			// if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+			if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 			{
 				if (tetramino.y == -1)
 				{
 					goto cleanup4;
 				}
 
-				// tetramino_cube_init(tetramino_group, &map);
-				tetramino_init(&tetramino, &map);
+				// tetramino_init(&tetramino, &map);
+				tetramino_cube_init(tetramino_group, &map);
 			}
 			timer = 1000;
 		}
@@ -70,15 +70,15 @@ int main(int argc, char **argv)
 			{
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					// if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
-					if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+					// if (tetramino_move_down(&tetramino, &map) == TETRAMINO_DEAD)
+					if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
 					{
 						if (tetramino.y == -1)
 						{
 							goto cleanup4;
 						}
-						// tetramino_cube_init(tetramino_group, &map);
-						tetramino_init(&tetramino, &map);
+						// tetramino_init(&tetramino, &map);
+						tetramino_cube_init(tetramino_group, &map);
 					}
 					timer = 1000;
 				}
@@ -100,7 +100,8 @@ int main(int argc, char **argv)
 		tetris_map_draw(&map, renderer, 30);
 
 		//tetramino draw
-		tetramino_draw(&tetramino, renderer, 30);
+		// tetramino_draw(&tetramino, renderer, 30);
+		tetramino_group_draw(tetramino_group, renderer, 30);
 
 		SDL_RenderPresent(renderer);
 	}

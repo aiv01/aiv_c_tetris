@@ -1,12 +1,12 @@
 #include "tetris.h"
 
-void tetramino_init(struct tetramino *tetramino, struct tetris_map *tetris_map)
+void tetramino_init(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     tetramino->x = tetris_map->width / 2;
     tetramino->y = -1;
 }
 
-void tetramino_cube_init(tetramino_t tetramini[4], struct tetris_map *tetris_map)
+void tetramino_cube_init(tetramino_t tetramini[4], tetris_map_t *tetris_map)
 {
     tetramini[0].x = 0;
     tetramini[0].y = 0;
@@ -21,19 +21,15 @@ void tetramino_cube_init(tetramino_t tetramini[4], struct tetris_map *tetris_map
     tetramini[3].y = 1;
 }
 
-int tetramino_group_move_down(struct tetramino tetramini[4], struct tetris_map *tetris_map)
+int tetramino_group_move_down(tetramino_t tetramini[4], tetris_map_t *tetris_map)
 {
-    // TODO split tetramino_move_down in check/move
     int i;
-    // first check
     int can_move = 1;
     for (i = 0; i < 4; i++)
     {
-        if(!tetramino_move_down_check(&tetramini[i], tetris_map))
-            can_move = 0;
+        can_move = !tetramino_move_down_check(&tetramini[i], tetris_map);
     }
 
-    // TODO check for DEAD
     if (!can_move)
         return TETRAMINO_OK;
 
@@ -45,7 +41,7 @@ int tetramino_group_move_down(struct tetramino tetramini[4], struct tetris_map *
     return TETRAMINO_OK;
 }
 
-int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_map)
+int tetramino_move_down(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
@@ -71,7 +67,7 @@ int tetramino_move_down(struct tetramino *tetramino, struct tetris_map *tetris_m
     return TETRAMINO_OK;
 }
 
-int tetramino_move_down_check(tetramino_t *tetramino, struct tetris_map *tetris_map)
+int tetramino_move_down_check(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     // int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
@@ -85,7 +81,7 @@ int tetramino_move_down_check(tetramino_t *tetramino, struct tetris_map *tetris_
     return TETRAMINO_OK;
 }
 
-int tetramino_move_down_act(tetramino_t *tetramino, struct tetris_map *tetris_map)
+int tetramino_move_down_act(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
@@ -105,7 +101,7 @@ int tetramino_move_down_act(tetramino_t *tetramino, struct tetris_map *tetris_ma
     return TETRAMINO_OK;
 }
 
-int tetramino_move_right(struct tetramino *tetramino, struct tetris_map *tetris_map)
+int tetramino_move_right(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     if (tetramino->x >= tetris_map->width - 1)
     {
@@ -121,7 +117,7 @@ int tetramino_move_right(struct tetramino *tetramino, struct tetris_map *tetris_
     return TETRAMINO_OK;
 }
 
-int tetramino_move_left(struct tetramino *tetramino, struct tetris_map *tetris_map)
+int tetramino_move_left(tetramino_t *tetramino, tetris_map_t *tetris_map)
 {
     if (tetramino->x <= 0)
     {
@@ -133,7 +129,7 @@ int tetramino_move_left(struct tetramino *tetramino, struct tetris_map *tetris_m
     return TETRAMINO_OK;
 }
 
-void tetris_map_init(struct tetris_map *tetris_map, int width, int height)
+void tetris_map_init(tetris_map_t *tetris_map, int width, int height)
 {
     int size = sizeof(int) * width * height;
 
@@ -143,7 +139,7 @@ void tetris_map_init(struct tetris_map *tetris_map, int width, int height)
     tetris_map->height = height;
 }
 
-void tetris_row_check_fill(struct tetris_map *tetris_map)
+void tetris_row_check_fill(tetris_map_t *tetris_map)
 {
     int row;
     int column;
@@ -165,7 +161,7 @@ void tetris_row_check_fill(struct tetris_map *tetris_map)
     }
 }
 
-void tetris_row_destroy(struct tetris_map *tetris_map, int row)
+void tetris_row_destroy(tetris_map_t *tetris_map, int row)
 {
     int row_index = tetris_map->width * row;
 
@@ -174,7 +170,7 @@ void tetris_row_destroy(struct tetris_map *tetris_map, int row)
         tetris_map->cell[i] = 0;
 }
 
-void tetris_collapse_down(struct tetris_map *tetris_map, int at_row)
+void tetris_collapse_down(tetris_map_t *tetris_map, int at_row)
 {
     // int row_index 
 }

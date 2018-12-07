@@ -16,6 +16,14 @@ void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
     _draw_rect_internal(renderer, &rect, 255, 0, 0);
 }
 
+void tetramino_group_draw(tetramino_t tetramini[4], SDL_Renderer *renderer, int size)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        tetramino_draw(&tetramini[i], renderer, size);
+    }
+}
+
 void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
 {
     int y, x;
