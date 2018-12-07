@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	tetris_map_init(&map, 10, 20);
 
 	tetramino_t tetramino_group[TETRAMINI];
-	tetramino_cube_init(tetramino_group, &map);
+	tetramino_random_shape_init(tetramino_group, &map);
 
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 					}
 				}
 
-				tetramino_cube_init(tetramino_group, &map);
+				tetramino_random_shape_init(tetramino_group, &map);
 			}
 			timer = 1000;
 		}
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 							}
 						}
 
-						tetramino_cube_init(tetramino_group, &map);
+						tetramino_random_shape_init(tetramino_group, &map);
 					}
 					timer = 1000;
 				}
