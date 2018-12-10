@@ -133,6 +133,7 @@ TEST(tetramino_dead)
 }
 
 // Why is this test passing?
+// WHY NOT
 TEST(check_row_filled_1x1)
 {
 	TETRAMINO_SETUP(1, 1);
@@ -142,6 +143,7 @@ TEST(check_row_filled_1x1)
 }
 
 // Why is this test passing?
+// WHY NOOOOT
 TEST(check_row_filled_2x2)
 {
 	TETRAMINO_SETUP(2, 2);
@@ -264,7 +266,7 @@ TEST(tetramino_group_move_left_blocked)
 // TEST(tetramino_group_move_left_multiple)
 TEST(tetramino_group_move_left_multiple)
 {
-	TETRAMINO_BOX_GROUP_SETUP(3, 3);
+	TETRAMINO_BOX_GROUP_SETUP(4, 4);
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 	tetramino_group_move_right(tetramino_group, &tetris_map);
 	tetramino_group_move_right(tetramino_group, &tetris_map);
@@ -304,11 +306,98 @@ TEST(tetramino_group_move_right)
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
 // TEST(tetramino_group_move_right_blocked)
+TEST(tetramino_group_move_right_blocked)
+{
+	TETRAMINO_BOX_GROUP_SETUP(3, 3);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+	tetramino_group_move_right(tetramino_group, &tetris_map);
+	tetramino_group_move_right(tetramino_group, &tetris_map);
+
+	ASSERT_THAT(tetramino_group[0].x == 1);
+	ASSERT_THAT(tetramino_group[0].y == 1);
+
+	ASSERT_THAT(tetramino_group[1].x == 2);
+	ASSERT_THAT(tetramino_group[1].y == 1);
+
+	ASSERT_THAT(tetramino_group[2].x == 1);
+	ASSERT_THAT(tetramino_group[2].y == 2);
+
+	ASSERT_THAT(tetramino_group[3].x == 2);
+	ASSERT_THAT(tetramino_group[3].y == 2);
+}
 // TEST(tetramino_group_move_right_multiple)
+// Confused about this
+TEST(tetramino_group_move_right_multiple)
+{
+	TETRAMINO_BOX_GROUP_SETUP(4, 4);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+	tetramino_group_move_right(tetramino_group, &tetris_map);
+	tetramino_group_move_right(tetramino_group, &tetris_map);
+
+	ASSERT_THAT(tetramino_group[0].x == 2);
+	ASSERT_THAT(tetramino_group[0].y == 1);
+
+	ASSERT_THAT(tetramino_group[1].x == 3);
+	ASSERT_THAT(tetramino_group[1].y == 1);
+
+	ASSERT_THAT(tetramino_group[2].x == 2);
+	ASSERT_THAT(tetramino_group[2].y == 2);
+
+	ASSERT_THAT(tetramino_group[3].x == 3);
+	ASSERT_THAT(tetramino_group[3].y == 2);
+
+} 
 // TEST(tetramino_group_move_down_wrong_value)
+// not really sure about this
+TEST(tetramino_group_move_down_wrong_value)
+{
+	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+
+	tetramino_group->y = 100;
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+
+	ASSERT_THAT(tetramino_group->y == 100);
+}
 // TEST(tetramino_group_busy_cell)
+TEST(tetramino_group_busy_cell)
+{
+	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+
+	tetramino_t tetramino_group2[TETRAMINI];
+	tetramino_o_shape_init(tetramino_group2, &tetris_map);
+
+	tetramino_group_move_down(tetramino_group2, &tetris_map);
+
+	ASSERT_THAT(tetramino_group2->y == 0);
+	
+}
 // TEST(tetramino_group_fill_two_blocks)
+// this won't work but i have to push
+TEST(tetramino_group_fill_two_blocks)
+{
+	TETRAMINO_BOX_GROUP_SETUP(4, 4);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+
+	ASSERT_THAT(tetramino_group->y == 2);
+
+	tetramino_t tetramino_group2[TETRAMINI];
+	tetramino_o_shape_init(tetramino_group2, &tetris_map);
+	tetramino_group_move_down(tetramino_group2, &tetris_map);
+	tetramino_group_move_down(tetramino_group2, &tetris_map);
+	
+	ASSERT_THAT(tetramino_group2->y == 0);
+}
 // TEST(tetramino_group_dead)
+TEST(tetramino_group_dead)
+{
+	TETRAMINO_BOX_GROUP_SETUP(3, 3);
+
+	ASSERT_THAT(tetramino_group_move_down(tetramino_group, &tetris_map) == TETRAMINO_OK);
+	ASSERT_THAT(tetramino_group_move_down(tetramino_group, &tetris_map) == TETRAMINO_DEAD);
+	ASSERT_THAT(tetramino_group_move_down(tetramino_group, &tetris_map) == TETRAMINO_DEAD);
+}
 
 // ---------------------- //
 //  PIERA YOU'RE DONE <3  //
@@ -345,6 +434,12 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_move_left);
 	RUN_TEST(tetramino_group_move_left_blocked);
 	RUN_TEST(tetramino_group_move_left_multiple);
+	RUN_TEST(tetramino_group_move_right_blocked);
+	RUN_TEST(tetramino_group_move_right_multiple);
+	RUN_TEST(tetramino_group_dead);
+	RUN_TEST(tetramino_group_move_down_wrong_value);
+	RUN_TEST(tetramino_group_busy_cell);
+	RUN_TEST(tetramino_group_fill_two_blocks);
 	PRINT_TEST_RESULTS();
 	return 0;
 }
