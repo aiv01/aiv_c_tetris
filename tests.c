@@ -221,6 +221,19 @@ TEST(tetramino_group_move_down)
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
 
+// Tests to make:
+
+// TEST(tetramino_group_move_left)
+// TEST(tetramino_group_move_left_blocked)
+// TEST(tetramino_group_move_left_multiple)
+// TEST(tetramino_group_move_right)
+// TEST(tetramino_group_move_right_blocked)
+// TEST(tetramino_group_move_right_multiple)
+// TEST(tetramino_group_move_down_wrong_value)
+// TEST(tetramino_group_busy_cell)
+// TEST(tetramino_group_fill_two_blocks)
+// TEST(tetramino_group_dead)
+
 // ---------------------- //
 //  PIERA YOU'RE DONE <3  //
 // ---------------------- //
