@@ -181,8 +181,8 @@ TEST(tetramino_group_init)
 	It will be spawned at the top-center part of the map
 	So for instance if you have a map that is 4 x 4:
 
-	X O O X
-	X O O X
+	X 1 2 X
+	X 3 4 X
 	X X X X
 	X X X X
 
