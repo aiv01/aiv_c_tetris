@@ -7,6 +7,12 @@
 	tetris_map_init(&tetris_map, width, height); \
 	tetramino_init(&tetramino, &tetris_map)
 
+#define TETRAMINO_BOX_GROUP_SETUP(width, height) \
+	tetramino_t tetramino_group[TETRAMINI];      \
+	tetris_map_t tetris_map;                     \
+	tetris_map_init(&tetris_map, width, height); \
+	tetramino_o_shape_init(tetramino_group, &tetris_map)
+
 TEST(tetramino_init)
 {
 	TETRAMINO_SETUP(1, 1);
@@ -153,6 +159,72 @@ TEST(check_row_filled_2x2)
 	ASSERT_THAT(tetris_map.cell[3] == 0);
 }
 
+// ----------------------- //
+//  PIERA START FROM HERE  //
+// ----------------------- //
+
+TEST(tetramino_group_init)
+{
+	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+
+	/*
+
+	This is a "box" tetramino
+	And those are the tetramini's positions:
+
+	|-----------|
+	|  0  |  1  |
+	|-----------|
+	|  2  |  3  |
+	|-----------|
+
+	It will be spawned at the top-center part of the map
+	So for instance if you have a map that is 4 x 4:
+
+	X O O X
+	X O O X
+	X X X X
+	X X X X
+
+	(O is the tetramino)
+
+	*/
+
+	ASSERT_THAT(tetramino_group[0].x == 0);
+	ASSERT_THAT(tetramino_group[0].y == 0);
+
+	ASSERT_THAT(tetramino_group[1].x == 1);
+	ASSERT_THAT(tetramino_group[1].y == 0);
+
+	ASSERT_THAT(tetramino_group[2].x == 0);
+	ASSERT_THAT(tetramino_group[2].y == 1);
+
+	ASSERT_THAT(tetramino_group[3].x == 1);
+	ASSERT_THAT(tetramino_group[3].y == 1);
+}
+
+TEST(tetramino_group_move_down)
+{
+	TETRAMINO_BOX_GROUP_SETUP(2, 3);
+	tetramino_group_move_down(tetramino_group, &tetris_map);
+
+	ASSERT_THAT(tetramino_group[0].x == 0);
+	ASSERT_THAT(tetramino_group[0].y == 1);
+
+	ASSERT_THAT(tetramino_group[1].x == 1);
+	ASSERT_THAT(tetramino_group[1].y == 1);
+
+	ASSERT_THAT(tetramino_group[2].x == 0);
+	ASSERT_THAT(tetramino_group[2].y == 2);
+
+	ASSERT_THAT(tetramino_group[3].x == 1);
+	ASSERT_THAT(tetramino_group[3].y == 2);
+}
+
+// ---------------------- //
+//  PIERA YOU'RE DONE <3  //
+// ---------------------- //
+
 TEST(tetramino_map_init)
 {
 	tetris_map_t tetris_map;
@@ -160,6 +232,7 @@ TEST(tetramino_map_init)
 
 	ASSERT_THAT(tetris_map.cell[0] == 0);
 }
+
 int main(int argc, char **argv)
 {
 	RUN_TEST(tetramino_init);
@@ -177,6 +250,8 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_move_left_multiple);
 	RUN_TEST(check_row_filled_1x1);
 	RUN_TEST(check_row_filled_2x2);
+	RUN_TEST(tetramino_group_init);
+	RUN_TEST(tetramino_group_move_down);
 	PRINT_TEST_RESULTS();
 	return 0;
 }

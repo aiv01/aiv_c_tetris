@@ -60,9 +60,7 @@ int main(int argc, char **argv)
 				for (int i = 0; i < TETRAMINI; i++)
 				{
 					if (tetramino_group[i].y == 0)
-					{
 						goto cleanup4;
-					}
 				}
 
 				tetramino_random_shape_init(tetramino_group, &map);
@@ -85,9 +83,7 @@ int main(int argc, char **argv)
 						for (int i = 0; i < TETRAMINI; i++)
 						{
 							if (tetramino_group[i].y == 0)
-							{
 								goto cleanup4;
-							}
 						}
 
 						tetramino_random_shape_init(tetramino_group, &map);
