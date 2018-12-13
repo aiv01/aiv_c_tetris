@@ -1,7 +1,8 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add rotations for the tetraminos
+// * Add variants for S and L pieces
+// * Check collision when rotating tetraminos
 // * Add sfx
 // * Add music
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*

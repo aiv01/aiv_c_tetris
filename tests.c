@@ -11,7 +11,7 @@
 	tetramino_t tetramino_group[TETRAMINI];      \
 	tetris_map_t tetris_map;                     \
 	tetris_map_init(&tetris_map, width, height); \
-	tetramino_o_shape_init(tetramino_group, &tetris_map)
+	tetramino_shape_init(tetramino_group, &tetris_map, O_SHAPE)
 
 TEST(tetramino_init)
 {
@@ -167,7 +167,7 @@ TEST(check_row_filled_2x2)
 
 TEST(tetramino_group_init)
 {
-	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+	TETRAMINO_BOX_GROUP_SETUP(4, 4);
 
 	/*
 
@@ -175,34 +175,32 @@ TEST(tetramino_group_init)
 	And those are the tetramini's positions:
 
 	|-----------|
-	|  0  |  1  |
-	|-----------|
 	|  2  |  3  |
+	|-----------|
+	|  0  |  1  |
 	|-----------|
 
 	It will be spawned at the top-center part of the map
 	So for instance if you have a map that is 4 x 4:
 
-	X 1 2 X
-	X 3 4 X
+	X 2 3 X
+	X 0 1 X
 	X X X X
 	X X X X
-
-	(O is the tetramino)
 
 	*/
 
-	ASSERT_THAT(tetramino_group[0].x == 0);
-	ASSERT_THAT(tetramino_group[0].y == 0);
+	ASSERT_THAT(tetramino_group[0].x == 1);
+	ASSERT_THAT(tetramino_group[0].y == 1);
 
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 0);
+	ASSERT_THAT(tetramino_group[1].x == 2);
+	ASSERT_THAT(tetramino_group[1].y == 1);
 
-	ASSERT_THAT(tetramino_group[2].x == 0);
-	ASSERT_THAT(tetramino_group[2].y == 1);
+	ASSERT_THAT(tetramino_group[2].x == 1);
+	ASSERT_THAT(tetramino_group[2].y == 0);
 
-	ASSERT_THAT(tetramino_group[3].x == 1);
-	ASSERT_THAT(tetramino_group[3].y == 1);
+	ASSERT_THAT(tetramino_group[3].x == 2);
+	ASSERT_THAT(tetramino_group[3].y == 0);
 }
 
 TEST(tetramino_group_move_down)
@@ -211,16 +209,16 @@ TEST(tetramino_group_move_down)
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 0);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 0);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 1);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_THAT(tetramino_group[3].y == 1);
 }
 
 // Tests to make:
@@ -233,16 +231,16 @@ TEST(tetramino_group_move_left)
 	tetramino_group_move_left(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 0);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 0);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 1);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_THAT(tetramino_group[3].y == 1);
 }
 
 TEST(tetramino_group_move_left_blocked)
@@ -251,16 +249,16 @@ TEST(tetramino_group_move_left_blocked)
 	tetramino_group_move_left(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 0);
-	ASSERT_THAT(tetramino_group[0].y == 0);
+	ASSERT_THAT(tetramino_group[0].y == 1);
 
 	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 0);
+	ASSERT_THAT(tetramino_group[1].y == 1);
 
 	ASSERT_THAT(tetramino_group[2].x == 0);
-	ASSERT_THAT(tetramino_group[2].y == 1);
+	ASSERT_THAT(tetramino_group[2].y == 0);
 
 	ASSERT_THAT(tetramino_group[3].x == 1);
-	ASSERT_THAT(tetramino_group[3].y == 1);
+	ASSERT_THAT(tetramino_group[3].y == 0);
 }
 
 TEST(tetramino_group_move_left_multiple)
@@ -274,16 +272,16 @@ TEST(tetramino_group_move_left_multiple)
 	tetramino_group_move_left(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 0);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 0);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 1);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_THAT(tetramino_group[3].y == 1);
 }
 
 TEST(tetramino_group_move_right)
@@ -293,16 +291,16 @@ TEST(tetramino_group_move_right)
 	tetramino_group_move_right(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 1);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 2);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 1);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 2);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_THAT(tetramino_group[3].y == 1);
 }
 
 TEST(tetramino_group_move_right_blocked)
@@ -313,16 +311,16 @@ TEST(tetramino_group_move_right_blocked)
 	tetramino_group_move_right(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 1);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 2);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 1);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 2);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_THAT(tetramino_group[3].y == 1);
 }
 
 // Confused about this
@@ -334,17 +332,16 @@ TEST(tetramino_group_move_right_multiple)
 	tetramino_group_move_right(tetramino_group, &tetris_map);
 
 	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	ASSERT_THAT(tetramino_group[0].y == 2);
 
 	ASSERT_THAT(tetramino_group[1].x == 3);
-	ASSERT_THAT(tetramino_group[1].y == 1);
+	ASSERT_THAT(tetramino_group[1].y == 2);
 
 	ASSERT_THAT(tetramino_group[2].x == 2);
-	ASSERT_THAT(tetramino_group[2].y == 2);
+	ASSERT_THAT(tetramino_group[2].y == 1);
 
 	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 2);
-
+	ASSERT_THAT(tetramino_group[3].y == 1);
 } 
 
 // not really sure about this
@@ -358,19 +355,17 @@ TEST(tetramino_group_move_down_wrong_value)
 	ASSERT_THAT(tetramino_group->y == 100);
 }
 
-// TEST(tetramino_group_busy_cell)
 TEST(tetramino_group_busy_cell)
 {
 	TETRAMINO_BOX_GROUP_SETUP(2, 2);
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 
 	tetramino_t tetramino_group2[TETRAMINI];
-	tetramino_o_shape_init(tetramino_group2, &tetris_map);
+	tetramino_shape_init(tetramino_group2, &tetris_map, O_SHAPE);
 
 	tetramino_group_move_down(tetramino_group2, &tetris_map);
 
-	ASSERT_THAT(tetramino_group2->y == 0);
-	
+	ASSERT_THAT(tetramino_group2->y == 1);	
 }
 
 // this won't work but i have to push
@@ -380,14 +375,14 @@ TEST(tetramino_group_fill_two_blocks)
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 
-	ASSERT_THAT(tetramino_group->y == 2);
+	ASSERT_THAT(tetramino_group->y == 3);
 
 	tetramino_t tetramino_group2[TETRAMINI];
-	tetramino_o_shape_init(tetramino_group2, &tetris_map);
+	tetramino_shape_init(tetramino_group2, &tetris_map, O_SHAPE);
 	tetramino_group_move_down(tetramino_group2, &tetris_map);
 	tetramino_group_move_down(tetramino_group2, &tetris_map);
 	
-	ASSERT_THAT(tetramino_group2->y == 0);
+	ASSERT_THAT(tetramino_group2->y == 1);
 }
 
 TEST(tetramino_group_dead)
@@ -430,16 +425,16 @@ int main(int argc, char **argv)
 	RUN_TEST(check_row_filled_2x2);
 	RUN_TEST(tetramino_group_init);
 	RUN_TEST(tetramino_group_move_down);
-	RUN_TEST(tetramino_group_move_right);
 	RUN_TEST(tetramino_group_move_left);
 	RUN_TEST(tetramino_group_move_left_blocked);
 	RUN_TEST(tetramino_group_move_left_multiple);
+	RUN_TEST(tetramino_group_move_right);
 	RUN_TEST(tetramino_group_move_right_blocked);
 	RUN_TEST(tetramino_group_move_right_multiple);
-	RUN_TEST(tetramino_group_dead);
 	RUN_TEST(tetramino_group_move_down_wrong_value);
 	RUN_TEST(tetramino_group_busy_cell);
 	RUN_TEST(tetramino_group_fill_two_blocks);
+	RUN_TEST(tetramino_group_dead);
 	PRINT_TEST_RESULTS();
 	return 0;
 }

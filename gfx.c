@@ -1,13 +1,5 @@
+#include "gfx.h"
 #include "tetris.h"
-
-const SDL_Color T_COLOR[] = 
-{
-    { 255, 127, 127 },
-    { 127, 255, 127 },
-    { 127, 127, 255 },
-    { 255, 255, 127 },
-    { 127, 255, 255 },
-};
 
 static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int color)
 {
