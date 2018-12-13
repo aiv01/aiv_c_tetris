@@ -13,6 +13,8 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
 {
     SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderFillRect(renderer, rect);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, rect);
 }
 
 void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
