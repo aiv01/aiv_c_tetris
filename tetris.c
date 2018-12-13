@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define CELL tetris_map->cell
+#define CELL_COLOR tetris_map->cell_color_id
 #define WIDTH tetris_map->width
 #define HEIGHT tetris_map->height
 #define MAPSIZE tetris_map->width * tetris_map->height
@@ -34,6 +35,8 @@ void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
             tetramino_t_shape_init(tetramini, tetris_map);
             break;
     }
+
+    // tetramino_o_shape_init(tetramini, tetris_map);
 }
 
 void tetramino_o_shape_init(TETRAMINI_T, TETRIS_MAP_T)
@@ -42,15 +45,19 @@ void tetramino_o_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
     tetramini[0].x = half_screen - 1;
     tetramini[0].y = 0;
+    tetramini[0].color_id = 0;
 
     tetramini[1].x = half_screen;
     tetramini[1].y = 0;
+    tetramini[1].color_id = 0;
 
     tetramini[2].x = half_screen - 1;
     tetramini[2].y = 1;
+    tetramini[2].color_id = 0;
 
     tetramini[3].x = half_screen;
     tetramini[3].y = 1;
+    tetramini[3].color_id = 0;
 }
 
 void tetramino_s_shape_init(TETRAMINI_T, TETRIS_MAP_T)
@@ -59,15 +66,19 @@ void tetramino_s_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
     tetramini[0].x = half_screen - 1;
     tetramini[0].y = 0;
+    tetramini[0].color_id = 1;
 
     tetramini[1].x = half_screen;
     tetramini[1].y = 0;
+    tetramini[1].color_id = 1;
 
     tetramini[2].x = half_screen;
     tetramini[2].y = 1;
+    tetramini[2].color_id = 1;
 
     tetramini[3].x = half_screen + 1;
     tetramini[3].y = 1;
+    tetramini[3].color_id = 1;
 }
 
 void tetramino_i_shape_init(TETRAMINI_T, TETRIS_MAP_T)
@@ -76,15 +87,19 @@ void tetramino_i_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
     tetramini[0].x = half_screen - 2;
     tetramini[0].y = 0;
+    tetramini[0].color_id = 2;
 
     tetramini[1].x = half_screen - 1;
     tetramini[1].y = 0;
+    tetramini[1].color_id = 2;
 
     tetramini[2].x = half_screen;
     tetramini[2].y = 0;
+    tetramini[2].color_id = 2;
 
     tetramini[3].x = half_screen + 1;
     tetramini[3].y = 0;
+    tetramini[3].color_id = 2;
 }
 
 void tetramino_l_shape_init(TETRAMINI_T, TETRIS_MAP_T)
@@ -93,15 +108,19 @@ void tetramino_l_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
     tetramini[0].x = half_screen;
     tetramini[0].y = 0;
+    tetramini[0].color_id = 3;
 
     tetramini[1].x = half_screen;
     tetramini[1].y = 1;
+    tetramini[1].color_id = 3;
 
     tetramini[2].x = half_screen;
     tetramini[2].y = 2;
+    tetramini[2].color_id = 3;
 
     tetramini[3].x = half_screen + 1;
     tetramini[3].y = 2;
+    tetramini[3].color_id = 3;
 }
 
 void tetramino_t_shape_init(TETRAMINI_T, TETRIS_MAP_T)
@@ -110,15 +129,19 @@ void tetramino_t_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
     tetramini[0].x = half_screen - 1;
     tetramini[0].y = 1;
+    tetramini[0].color_id = 4;
 
     tetramini[1].x = half_screen;
     tetramini[1].y = 1;
+    tetramini[1].color_id = 4;
 
     tetramini[2].x = half_screen;
     tetramini[2].y = 0;
+    tetramini[2].color_id = 4;
 
     tetramini[3].x = half_screen + 1;
     tetramini[3].y = 1;
+    tetramini[3].color_id = 4;
 }
 
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T)
@@ -149,7 +172,7 @@ int tetramino_group_move_right(TETRAMINI_T, TETRIS_MAP_T)
 
         current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
 
-        if (tetris_map->cell[current_index + 1] == 1)
+        if (CELL[current_index + 1] == 1)
             return TETRAMINO_OK;
     }
 
@@ -170,7 +193,7 @@ int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T)
 
         current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
 
-        if (tetris_map->cell[current_index - 1] == 1)
+        if (CELL[current_index - 1] == 1)
             return TETRAMINO_OK;
     }
 
@@ -187,17 +210,17 @@ int tetramino_move_down(TETRAMINO_T, TETRIS_MAP_T)
 
     if (tetramino->y + 1 >= tetris_map->height)
     {
-        tetris_map->cell[current_index] = 1;
+        CELL[current_index] = 1;
         return TETRAMINO_DEAD;
     }
 
-    if (tetris_map->cell[next_index] == 0)
+    if (CELL[next_index] == 0)
     {
         tetramino->y += 1;
     }
     else
     {
-        tetris_map->cell[current_index] = 1;
+        CELL[current_index] = 1;
         return TETRAMINO_DEAD;
     }
 
@@ -213,11 +236,11 @@ int tetramino_move_down_check(TETRAMINO_T, TETRIS_MAP_T)
 
     if (tetramino->y + 1 >= tetris_map->height)
     {
-        tetris_map->cell[current_index] = 1;
+        CELL[current_index] = 1;
         return TETRAMINO_DEAD;
     }
 
-    if (tetris_map->cell[next_index] == 1)
+    if (CELL[next_index] == 1)
         return TETRAMINO_DEAD;
 
     return TETRAMINO_OK;
@@ -228,13 +251,13 @@ int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T)
     int current_index = tetris_map->width * tetramino->y + tetramino->x;
     int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
 
-    if (tetris_map->cell[next_index] == 0)
+    if (CELL[next_index] == 0)
     {
         tetramino->y += 1;
     }
     else
     {
-        tetris_map->cell[current_index] = 1;
+        CELL[current_index] = 1;
         return TETRAMINO_DEAD;
     }
 
@@ -252,7 +275,8 @@ int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T)
     {
         current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
         next_index = tetris_map->width * (tetramini[i].y + 1) + tetramini[i].x;
-        tetris_map->cell[current_index] = 1;
+        CELL[current_index] = 1;
+        CELL_COLOR[current_index] = tetramini[i].color_id;
     }
 
     return TETRAMINO_DEAD;
@@ -266,7 +290,7 @@ int tetramino_move_right(TETRAMINO_T, TETRIS_MAP_T)
     }
 
     int right_index = tetris_map->width * tetramino->y + (tetramino->x + 1);
-    if (!tetris_map->cell[right_index])
+    if (!CELL[right_index])
     {
         tetramino->x++;
     }
@@ -318,8 +342,12 @@ void tetris_map_init(TETRIS_MAP_T, int width, int height)
 {
     int size = sizeof(int) * width * height;
 
-    tetris_map->cell = malloc(size);
-    memset(tetris_map->cell, 0, size);
+    CELL = malloc(size);
+    memset(CELL, 0, size);
+
+    CELL_COLOR = malloc(size);
+    memset(CELL_COLOR, 0, size);
+
     tetris_map->width = width;
     tetris_map->height = height;
 }
@@ -336,7 +364,7 @@ void tetris_row_check_fill(TETRIS_MAP_T)
         for (column = 0; column < tetris_map->width; column++)
         {
             // We count how many tetramini are in the row
-            if (tetris_map->cell[(row * tetris_map->width) + column] == 1)
+            if (CELL[(row * tetris_map->width) + column] == 1)
                 tetramini += 1;
         }
 

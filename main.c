@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Each tetramino should have different colors
 // * Add rotations for the tetraminos
 // * Add sfx
 // * Add music

@@ -1,8 +1,17 @@
 #include "tetris.h"
 
-static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, Uint8 r, Uint8 g, Uint8 b)
+const SDL_Color T_COLOR[] = 
 {
-    SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+    { 255, 127, 127 },
+    { 127, 255, 127 },
+    { 127, 127, 255 },
+    { 255, 255, 127 },
+    { 127, 255, 255 },
+};
+
+static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int color)
+{
+    SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderFillRect(renderer, rect);
 }
 
@@ -13,7 +22,9 @@ void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
     rect.y = 0;
     rect.h = size * map->height;
     rect.w = size * map->width;
-    _draw_rect_internal(renderer, &rect, 50, 50, 50);
+
+    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+    SDL_RenderFillRect(renderer, &rect);
 }
 
 void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
@@ -23,7 +34,7 @@ void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
     rect.y = tetramino->y * size;
     rect.h = size;
     rect.w = size;
-    _draw_rect_internal(renderer, &rect, 255, 0, 0);
+    _draw_rect_internal(renderer, &rect, tetramino->color_id);
 }
 
 void tetramino_group_draw(tetramino_t tetramini[4], SDL_Renderer *renderer, int size)
@@ -51,7 +62,7 @@ void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
                 rect.y = y * size;
                 rect.h = size;
                 rect.w = size;
-                _draw_rect_internal(renderer, &rect, 255, 255, 255);
+                _draw_rect_internal(renderer, &rect, map->cell_color_id[index]);
             }
         }
     }
