@@ -375,6 +375,7 @@ void tetris_row_check_fill(TETRIS_MAP_T)
 
 void tetris_row_destroy(TETRIS_MAP_T, int row)
 {
+    // Move down all the cells
     memmove
     (
         CELL + WIDTH, 
@@ -382,4 +383,12 @@ void tetris_row_destroy(TETRIS_MAP_T, int row)
         sizeof(int) * (WIDTH * row)
     );
     memset(CELL + WIDTH, 0, sizeof(int) * WIDTH);
+    // Move down all the color cells
+    memmove
+    (
+        CELL_COLOR + WIDTH, 
+        CELL_COLOR, 
+        sizeof(int) * (WIDTH * row)
+    );
+    memset(CELL_COLOR + WIDTH, 0, sizeof(int) * WIDTH);
 }
