@@ -1,6 +1,11 @@
 #include "tetris.h"
 #include <stdio.h>
 
+#define CELL tetris_map->cell
+#define WIDTH tetris_map->width
+#define HEIGHT tetris_map->height
+#define MAPSIZE tetris_map->width * tetris_map->height
+
 void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 {
     tetramino->x = tetris_map->width / 2;
@@ -325,7 +330,7 @@ void tetris_row_check_fill(TETRIS_MAP_T)
     int column;
 
     // For each row of the Tetris map
-    for (row = 0; row < tetris_map->height; row++)
+    for (row = HEIGHT; row >= 0; row--)
     {
         int tetramini = 0;
         for (column = 0; column < tetris_map->width; column++)
@@ -334,7 +339,6 @@ void tetris_row_check_fill(TETRIS_MAP_T)
             if (tetris_map->cell[(row * tetris_map->width) + column] == 1)
                 tetramini += 1;
         }
-        // SDL_Log("row %d has %d\n tetramini", row, tetramini);
 
         if (tetramini >= tetris_map->width)
             tetris_row_destroy(tetris_map, row);
@@ -343,14 +347,11 @@ void tetris_row_check_fill(TETRIS_MAP_T)
 
 void tetris_row_destroy(TETRIS_MAP_T, int row)
 {
-    int row_index = tetris_map->width * row;
-
-    int i;
-    for (i = row_index; i < (row_index + tetris_map->width); i++)
-        tetris_map->cell[i] = 0;
-}
-
-void tetris_collapse_down(TETRIS_MAP_T, int at_row)
-{
-    
+    memmove
+    (
+        CELL + WIDTH, 
+        CELL, 
+        sizeof(int) * (WIDTH * row)
+    );
+    memset(CELL + WIDTH, 0, sizeof(int) * WIDTH);
 }

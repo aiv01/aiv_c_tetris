@@ -3,7 +3,17 @@
 static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, Uint8 r, Uint8 g, Uint8 b)
 {
     SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-    SDL_RenderDrawRect(renderer, rect);
+    SDL_RenderFillRect(renderer, rect);
+}
+
+void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
+{
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
+    rect.h = size * map->height;
+    rect.w = size * map->width;
+    _draw_rect_internal(renderer, &rect, 50, 50, 50);
 }
 
 void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
@@ -26,6 +36,8 @@ void tetramino_group_draw(tetramino_t tetramini[4], SDL_Renderer *renderer, int 
 
 void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
 {
+    field_draw(map, renderer, size);
+
     int y, x;
     for (y = 0; y < map->height; y++)
     {

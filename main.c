@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add shifting when a row is cleared
 // * Each tetramino should have different colors
 // * Add rotations for the tetraminos
 // * Add sfx

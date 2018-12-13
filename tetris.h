@@ -35,6 +35,7 @@ void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer, int size);
 
 void tetris_row_check_fill(TETRIS_MAP_T);
 void tetris_row_destroy(TETRIS_MAP_T, int row);
+void tetris_collapse_down(TETRIS_MAP_T, int at_row);
 
 int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T);
 
