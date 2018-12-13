@@ -8,6 +8,10 @@
 // * Optional: add animations?
 /* -------------------------------------------------------------------------------- */
 
+#define HORIZONTAL_CELLS 10
+#define VERTICAL_CELLS 20
+#define CELL_SIZE 30
+
 int main(int argc, char **argv)
 {
 	int ret = 0;
@@ -18,13 +22,23 @@ int main(int argc, char **argv)
 		goto cleanup;
 	}
 
-	SDL_Window *window = SDL_CreateWindow("tetris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, 0);
+	SDL_Window *window = SDL_CreateWindow
+	(
+		"tetris", 
+		SDL_WINDOWPOS_UNDEFINED, 
+		SDL_WINDOWPOS_UNDEFINED, 
+		HORIZONTAL_CELLS * CELL_SIZE, 
+		VERTICAL_CELLS * CELL_SIZE, 
+		0
+	);
+
 	if (!window)
 	{
 		SDL_Log("unable to create window: %s", SDL_GetError());
 		ret = -1;
 		goto cleanup2;
 	}
+	
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	if (!renderer)
 	{
@@ -34,7 +48,7 @@ int main(int argc, char **argv)
 	}
 
 	tetris_map_t map;
-	tetris_map_init(&map, 10, 20);
+	tetris_map_init(&map, HORIZONTAL_CELLS, VERTICAL_CELLS);
 
 	tetramino_t tetramino_group[TETRAMINI];
 	tetramino_random_shape_init(tetramino_group, &map);
@@ -95,6 +109,10 @@ int main(int argc, char **argv)
 				{
 					tetramino_group_move_left(tetramino_group, &map);
 				}
+				else if (event.key.keysym.sym == SDLK_UP)
+				{
+					tetramino_group_rotate(tetramino_group, &map);
+				}
 			}
 		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -104,7 +122,7 @@ int main(int argc, char **argv)
 		tetris_map_draw(&map, renderer, 30);
 
 		//tetramino draw
-		tetramino_group_draw(tetramino_group, renderer, 30);
+		tetramino_group_draw(tetramino_group, renderer, CELL_SIZE);
 
 		SDL_RenderPresent(renderer);
 	}

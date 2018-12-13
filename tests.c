@@ -225,7 +225,6 @@ TEST(tetramino_group_move_down)
 
 // Tests to make:
 
-// TEST(tetramino_group_move_left)
 TEST(tetramino_group_move_left)
 {
 	TETRAMINO_BOX_GROUP_SETUP(3, 3);
@@ -245,7 +244,7 @@ TEST(tetramino_group_move_left)
 	ASSERT_THAT(tetramino_group[3].x == 1);
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
-// TEST(tetramino_group_move_left_blocked)
+
 TEST(tetramino_group_move_left_blocked)
 {
 	TETRAMINO_BOX_GROUP_SETUP(2, 2);
@@ -263,7 +262,7 @@ TEST(tetramino_group_move_left_blocked)
 	ASSERT_THAT(tetramino_group[3].x == 1);
 	ASSERT_THAT(tetramino_group[3].y == 1);
 }
-// TEST(tetramino_group_move_left_multiple)
+
 TEST(tetramino_group_move_left_multiple)
 {
 	TETRAMINO_BOX_GROUP_SETUP(4, 4);
@@ -286,7 +285,7 @@ TEST(tetramino_group_move_left_multiple)
 	ASSERT_THAT(tetramino_group[3].x == 1);
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
-// TEST(tetramino_group_move_right)
+
 TEST(tetramino_group_move_right)
 {
 	TETRAMINO_BOX_GROUP_SETUP(3, 3);
@@ -305,7 +304,7 @@ TEST(tetramino_group_move_right)
 	ASSERT_THAT(tetramino_group[3].x == 2);
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
-// TEST(tetramino_group_move_right_blocked)
+
 TEST(tetramino_group_move_right_blocked)
 {
 	TETRAMINO_BOX_GROUP_SETUP(3, 3);
@@ -325,7 +324,7 @@ TEST(tetramino_group_move_right_blocked)
 	ASSERT_THAT(tetramino_group[3].x == 2);
 	ASSERT_THAT(tetramino_group[3].y == 2);
 }
-// TEST(tetramino_group_move_right_multiple)
+
 // Confused about this
 TEST(tetramino_group_move_right_multiple)
 {
@@ -347,7 +346,7 @@ TEST(tetramino_group_move_right_multiple)
 	ASSERT_THAT(tetramino_group[3].y == 2);
 
 } 
-// TEST(tetramino_group_move_down_wrong_value)
+
 // not really sure about this
 TEST(tetramino_group_move_down_wrong_value)
 {
@@ -358,6 +357,7 @@ TEST(tetramino_group_move_down_wrong_value)
 
 	ASSERT_THAT(tetramino_group->y == 100);
 }
+
 // TEST(tetramino_group_busy_cell)
 TEST(tetramino_group_busy_cell)
 {
@@ -372,7 +372,7 @@ TEST(tetramino_group_busy_cell)
 	ASSERT_THAT(tetramino_group2->y == 0);
 	
 }
-// TEST(tetramino_group_fill_two_blocks)
+
 // this won't work but i have to push
 TEST(tetramino_group_fill_two_blocks)
 {
@@ -389,7 +389,7 @@ TEST(tetramino_group_fill_two_blocks)
 	
 	ASSERT_THAT(tetramino_group2->y == 0);
 }
-// TEST(tetramino_group_dead)
+
 TEST(tetramino_group_dead)
 {
 	TETRAMINO_BOX_GROUP_SETUP(3, 3);
