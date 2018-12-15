@@ -1,12 +1,17 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add variants for S and L pieces
+// * Add variants (x-mirrored) for S and L pieces
 // * Check collision when rotating tetraminos
+// * Implement the correct tetramino shuffling algorithm
+// * Show a preview of the net tetramino in line
 // * Add sfx
 // * Add music
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
-// * Optional: add animations?
+// * PIERA I CHOOSE YOU
+// * GOTTA TEST EM ALL
+// * Optional: add animations? But just after we finish the game
+// * ^ Lol seriously when?
 /* -------------------------------------------------------------------------------- */
 
 #define HORIZONTAL_CELLS 10

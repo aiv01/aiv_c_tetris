@@ -141,7 +141,6 @@ struct tetris_map
     int width;
     int height;
     int *cell;
-    int *cell_color_id;
     int tetramino_type;
     int tetramino_current_rot;
 };
