@@ -12,6 +12,7 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, rect);
 
+    // Light shade
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderDrawLine(renderer, rect->x + 1, rect->y + 1, rect->x - 2 + rect->w, rect->y + 1);
     SDL_RenderDrawLine(renderer, rect->x - 2 + rect->w, rect->y + 1, rect->x - 2 + rect->w, rect->y - 2 + rect->h);
@@ -25,7 +26,7 @@ void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
     rect.h = size * map->height;
     rect.w = size * map->width;
 
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 0);
     SDL_RenderFillRect(renderer, &rect);
 }
 

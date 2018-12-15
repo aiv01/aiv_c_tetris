@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add variants (x-mirrored) for S and L pieces
 // * Check collision when rotating tetraminos
 // * Implement the correct tetramino shuffling algorithm
 // * Show a preview of the net tetramino in line
@@ -121,13 +120,11 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
 
-		// draw map
+		// Map draw
 		tetris_map_draw(&map, renderer, 30);
 
-		//tetramino draw
+		// Tetramino draw
 		tetramino_group_draw(tetramino_group, renderer, CELL_SIZE);
 
 		SDL_RenderPresent(renderer);

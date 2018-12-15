@@ -9,15 +9,15 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
-    // 0 - OK
-    // 1 - MMH
-    // 2 - OK
-    // 3 - OK
-    // 4 - OK
+    // 0 - O - OK
+    // 1 - S - MMH
+    // 2 - I - OK
+    // 3 - L - OK
+    // 4 - T - OK
 
-    int random = rand() % 5;
+    int random = rand() % TETRAMINI_SHAPES;
 
-    SHAPE_TYPE = random;
+    SHAPE_TYPE = 5;
     ROTATION = 0;
 
     tetramino_shape_init(tetramini, tetris_map, SHAPE_TYPE);

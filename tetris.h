@@ -21,14 +21,18 @@
 #define ROTATION tetris_map->tetramino_current_rot
 #define SHAPE_TYPE tetris_map->tetramino_type
 
+#define TETRAMINI_SHAPES 7
+
 #define O_SHAPE 0
 #define S_SHAPE 1
 #define I_SHAPE 2
 #define L_SHAPE 3
 #define T_SHAPE 4
+#define S_VARIANT_SHAPE 5
+#define L_VARIANT_SHAPE 6
 
-static const int tetramino_rotations[] = { 0, 2, 2, 4, 4 };
-static const int tetramini_positions[5][4][8] = 
+static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
+static const int tetramini_positions[TETRAMINI_SHAPES][4][8] = 
 {
     // 0 - O SHAPE
     { 
@@ -44,16 +48,16 @@ static const int tetramini_positions[5][4][8] =
         // HORIZONTAL
         { 
             // X POSITION
-            0, 1, 1, 2,
+            0, -1, 0, 1,
             // Y POSITION
-            1, 1, 2, 2
+            0, 1, 1, 0
         },
         // VERTICAL
         { 
             // X POSITION
             0, 0, 1, 1,
             // Y POSITION
-            0, 1, 1, 2
+            0, -1, 0, 1
         }
     },
     // 2 - I SHAPE
@@ -125,6 +129,50 @@ static const int tetramini_positions[5][4][8] =
             0, 0, 0, -1,
             // Y POSITION
             0, -1, 1, 0
+        }
+    },
+    // 5 - S VARIANT SHAPE
+    { 
+        // HORIZONTAL
+        { 
+            // X POSITION
+            0, -1, 0, 1,
+            // Y POSITION
+            0, 0, 1, 1
+        },
+        // VERTICAL
+        { 
+            // X POSITION
+            0, 1, 1, 0,
+            // Y POSITION
+            0, -1, 0, 1
+        }
+    },
+    // 6 - L SHAPE
+    { 
+        { 
+            // X POSITION
+            0, -1, -1, 1,
+            // Y POSITION
+            0, 0, 1, 0
+        },
+        { 
+            // X POSITION
+            0, 0, 0, -1,
+            // Y POSITION
+            0, -1, 1, -1
+        },
+        { 
+            // X POSITION
+            0, -1, 1, 1,
+            // Y POSITION
+            0, 0, -1, 0
+        },
+        { 
+            // X POSITION
+            0, 0, 0, 1,
+            // Y POSITION
+            0, 1, -1, 1
         }
     }
 };
