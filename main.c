@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 		SDL_WINDOWPOS_UNDEFINED, 
 		HORIZONTAL_CELLS * CELL_SIZE, 
 		VERTICAL_CELLS * CELL_SIZE, 
-		0
+		SDL_WINDOW_OPENGL
 	);
 
 	if (!window)

@@ -7,8 +7,11 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
     // And colors ranges from 0-5 so...
     color--;
 
+    // Innter shape
     SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderFillRect(renderer, rect);
+
+    // Outer border
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, rect);
 
@@ -26,7 +29,7 @@ void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
     rect.h = size * map->height;
     rect.w = size * map->width;
 
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 0);
+    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 127);
     SDL_RenderFillRect(renderer, &rect);
 }
 
@@ -43,9 +46,7 @@ void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
 void tetramino_group_draw(tetramino_t tetramini[4], SDL_Renderer *renderer, int size)
 {
     for (int i = 0; i < 4; i++)
-    {
         tetramino_draw(&tetramini[i], renderer, size);
-    }
 }
 
 void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
