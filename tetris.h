@@ -28,8 +28,8 @@
 #define I_SHAPE 2
 #define L_SHAPE 3
 #define T_SHAPE 4
-#define S_VARIANT_SHAPE 5
-#define L_VARIANT_SHAPE 6
+#define Z_SHAPE 5
+#define J_SHAPE 6
 
 static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
 static const int tetramini_positions[TETRAMINI_SHAPES][4][8] = 
@@ -131,7 +131,7 @@ static const int tetramini_positions[TETRAMINI_SHAPES][4][8] =
             0, -1, 1, 0
         }
     },
-    // 5 - S VARIANT SHAPE
+    // 5 - Z VARIANT SHAPE
     { 
         // HORIZONTAL
         { 
@@ -148,7 +148,7 @@ static const int tetramini_positions[TETRAMINI_SHAPES][4][8] =
             0, -1, 0, 1
         }
     },
-    // 6 - L SHAPE
+    // 6 - J SHAPE
     { 
         { 
             // X POSITION
