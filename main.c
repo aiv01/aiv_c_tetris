@@ -13,10 +13,6 @@
 // * ^ Lol seriously when?
 /* -------------------------------------------------------------------------------- */
 
-#define HORIZONTAL_CELLS 10
-#define VERTICAL_CELLS 20
-#define CELL_SIZE 30
-
 int main(int argc, char **argv)
 {
 	int ret = 0;

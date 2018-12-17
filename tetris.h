@@ -5,6 +5,15 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+// --- GAME CONFIGURATION ---
+
+#define HORIZONTAL_CELLS 10
+#define VERTICAL_CELLS 20
+#define CELL_SIZE 30
+#define HALF_TETRIS_MAP 5
+
+// --------------------------
+
 #define TETRAMINO_OK 0
 #define TETRAMINO_DEAD -1
 #define TETRAMINI 4

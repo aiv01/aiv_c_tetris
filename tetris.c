@@ -3,7 +3,7 @@
 
 void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 {
-    tetramino->x = tetris_map->width / 2;
+    tetramino->x = HALF_TETRIS_MAP;
     tetramino->y = -1;
 }
 
@@ -19,11 +19,9 @@ void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
 {
-    int half_screen = tetris_map->width / 2;
-    
     for (int i = 0; i < TETRAMINI; i++)
     {
-        tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + half_screen;
+        tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + HALF_TETRIS_MAP;
         tetramini[i].y = +1 + tetramini_positions[shape][ROTATION][i+4];
         tetramini[i].color_id = SHAPE_TYPE + 1;
     }
