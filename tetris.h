@@ -10,7 +10,6 @@
 #define HORIZONTAL_CELLS 10
 #define VERTICAL_CELLS 20
 #define CELL_SIZE 30
-#define HALF_TETRIS_MAP 5
 
 // --------------------------
 
