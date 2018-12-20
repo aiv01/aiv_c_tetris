@@ -11,7 +11,9 @@ void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
     int random = rand() % TETRAMINI_SHAPES;
 
-    SHAPE_TYPE = random;
+    // SHAPE_TYPE = random;
+    SHAPE_TYPE = I_SHAPE;
+
     ROTATION = 0;
 
     tetramino_shape_init(tetramini, tetris_map, SHAPE_TYPE);
@@ -22,27 +24,71 @@ void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
     for (int i = 0; i < TETRAMINI; i++)
     {
         tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + tetris_map->width / 2;
-        tetramini[i].y = +1 + tetramini_positions[shape][ROTATION][i+4];
+        tetramini[i].y = +1 + tetramini_positions[shape][ROTATION][i + 4];
         tetramini[i].color_id = SHAPE_TYPE + 1;
     }
 }
 
 int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T)
 {
-    if (ROTATION >= tetramino_rotations[SHAPE_TYPE] - 1)
-        ROTATION = 0;
-    else
-        ROTATION++;
+    ROTATION++;
+    ROTATION %= tetramino_rotations[SHAPE_TYPE];
+
+    if (tetramino_group_check_rotation_map(tetramini, tetris_map, tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
+    {
+        ROTATION--;
+        return 0;
+    }
 
     int previous_x = tetramini[0].x;
     int previous_y = tetramini[0].y;
-    
 
     for (int i = 0; i < 4; i++)
     {
         tetramini[i].x = previous_x + (int)tetramini_positions[SHAPE_TYPE][ROTATION][i];
         tetramini[i].y = previous_y + (int)tetramini_positions[SHAPE_TYPE][ROTATION][i + 4];
     }
+
+    tetramino_group_check_rotation_bounds(tetramini, tetris_map);
+}
+
+int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY])
+{
+    int current_row;
+    int current_column;
+    int current_index;
+
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        current_row = tetramini[i].x;
+        current_column = tetramini[i].y;
+
+        current_row += tetramini_positions[i];
+        current_column += tetramini_positions[i+4];
+
+        current_index = WIDTH * current_column + current_row;
+
+        if (CELL[current_index] > 0)
+            return TETRAMINO_DEAD;
+    }
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T)
+{
+    int horizontal_sweep = 0;
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        if (tetramini[i].x < 0)
+            horizontal_sweep++;
+
+        if (tetramini[i].x >= WIDTH)
+            horizontal_sweep--;
+    }
+
+    for (int i = 0; i < TETRAMINI; i++)
+        tetramini[i].x += horizontal_sweep;
 }
 
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T)
@@ -273,11 +319,9 @@ void tetris_row_check_fill(TETRIS_MAP_T)
 void tetris_row_destroy(TETRIS_MAP_T, int row)
 {
     // Move down all the cells
-    memmove
-    (
-        CELL + WIDTH, 
-        CELL, 
-        sizeof(int) * (WIDTH * row)
-    );
+    memmove(
+        CELL + WIDTH,
+        CELL,
+        sizeof(int) * (WIDTH * row));
     memset(CELL + WIDTH, 0, sizeof(int) * WIDTH);
 }

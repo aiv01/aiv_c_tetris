@@ -30,6 +30,8 @@
 #define SHAPE_TYPE tetris_map->tetramino_type
 
 #define TETRAMINI_SHAPES 7
+#define MAX_ROTATIONS 4
+#define TETRAMINI_XY TETRAMINI * 2
 
 #define O_SHAPE 0
 #define S_SHAPE 1
@@ -40,7 +42,7 @@
 #define J_SHAPE 6
 
 static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
-static const int tetramini_positions[TETRAMINI_SHAPES][4][8] = 
+static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI * 2] = 
 {
     // 0 - O SHAPE
     { 
@@ -228,6 +230,8 @@ int tetramino_move_left_check(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_left_act(TETRAMINO_T, TETRIS_MAP_T);
 
 int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T);
+int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T);
+int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI * 2]);
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_move_right(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T);
