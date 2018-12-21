@@ -33,7 +33,7 @@ void field_draw(tetris_map_t *map, SDL_Renderer *renderer, int size)
     SDL_RenderFillRect(renderer, &rect);
 }
 
-void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
+void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer, int size)
 {
     SDL_Rect rect;
     rect.x = tetramino->x * size;
@@ -43,7 +43,7 @@ void tetramino_draw(tetramino_t *tetramino, SDL_Renderer *renderer, int size)
     _draw_rect_internal(renderer, &rect, tetramino->color_id);
 }
 
-void tetramino_group_draw(tetramino_t tetramini[4], SDL_Renderer *renderer, int size)
+void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer, int size)
 {
     for (int i = 0; i < 4; i++)
         tetramino_draw(&tetramini[i], renderer, size);

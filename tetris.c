@@ -3,7 +3,7 @@
 
 void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 {
-    tetramino->x = tetris_map->width / 2;
+    tetramino->x = WIDTH / 2;
     tetramino->y = -1;
 }
 
@@ -23,7 +23,7 @@ void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
 {
     for (int i = 0; i < TETRAMINI; i++)
     {
-        tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + tetris_map->width / 2;
+        tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + WIDTH / 2;
         tetramini[i].y = +1 + tetramini_positions[shape][ROTATION][i + 4];
         tetramini[i].color_id = SHAPE_TYPE + 1;
     }
@@ -34,7 +34,7 @@ int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T)
     ROTATION++;
     ROTATION %= tetramino_rotations[SHAPE_TYPE];
 
-    if (tetramino_group_check_rotation_map(tetramini, tetris_map, tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
+    if (tetramino_group_check_rotation_map(tetramini, tetris_map, (int*)tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
     {
         ROTATION--;
         return 0;
@@ -78,6 +78,7 @@ int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_
 int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T)
 {
     int horizontal_sweep = 0;
+
     for (int i = 0; i < TETRAMINI; i++)
     {
         if (tetramini[i].x < 0)
@@ -117,7 +118,7 @@ int tetramino_group_move_right(TETRAMINI_T, TETRIS_MAP_T)
         if (tetramino_move_right_check(&tetramini[i], tetris_map) == TETRAMINO_DEAD)
             return TETRAMINO_DEAD;
 
-        current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
+        current_index = WIDTH * tetramini[i].y + tetramini[i].x;
 
         if (CELL[current_index + 1] >= 1)
             return TETRAMINO_OK;
@@ -138,7 +139,7 @@ int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T)
         if (tetramino_move_left_check(&tetramini[i], tetris_map) == TETRAMINO_DEAD)
             return TETRAMINO_DEAD;
 
-        current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
+        current_index = WIDTH * tetramini[i].y + tetramini[i].x;
 
         if (CELL[current_index - 1] >= 1)
             return TETRAMINO_OK;
@@ -152,10 +153,10 @@ int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T)
 
 int tetramino_move_down(TETRAMINO_T, TETRIS_MAP_T)
 {
-    int current_index = tetris_map->width * tetramino->y + tetramino->x;
-    int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+    int current_index = WIDTH * tetramino->y + tetramino->x;
+    int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
 
-    if (tetramino->y + 1 >= tetris_map->height)
+    if (tetramino->y + 1 >= HEIGHT)
     {
         CELL[current_index] = 1;
         return TETRAMINO_DEAD;
@@ -178,10 +179,10 @@ int tetramino_move_down(TETRAMINO_T, TETRIS_MAP_T)
 
 int tetramino_move_down_check(TETRAMINO_T, TETRIS_MAP_T)
 {
-    int current_index = tetris_map->width * tetramino->y + tetramino->x;
-    int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+    int current_index = WIDTH * tetramino->y + tetramino->x;
+    int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
 
-    if (tetramino->y + 1 >= tetris_map->height)
+    if (tetramino->y + 1 >= HEIGHT)
     {
         CELL[current_index] = 1;
         return TETRAMINO_DEAD;
@@ -195,8 +196,8 @@ int tetramino_move_down_check(TETRAMINO_T, TETRIS_MAP_T)
 
 int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T)
 {
-    int current_index = tetris_map->width * tetramino->y + tetramino->x;
-    int next_index = tetris_map->width * (tetramino->y + 1) + tetramino->x;
+    int current_index = WIDTH * tetramino->y + tetramino->x;
+    int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
 
     if (CELL[next_index] == 0)
     {
@@ -220,8 +221,8 @@ int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T)
 
     for (int i = 0; i < TETRAMINI; i++)
     {
-        current_index = tetris_map->width * tetramini[i].y + tetramini[i].x;
-        next_index = tetris_map->width * (tetramini[i].y + 1) + tetramini[i].x;
+        current_index = WIDTH * tetramini[i].y + tetramini[i].x;
+        next_index = WIDTH * (tetramini[i].y + 1) + tetramini[i].x;
         CELL[current_index] = tetramini[i].color_id;
     }
 
@@ -230,12 +231,12 @@ int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T)
 
 int tetramino_move_right(TETRAMINO_T, TETRIS_MAP_T)
 {
-    if (tetramino->x >= tetris_map->width - 1)
+    if (tetramino->x >= WIDTH - 1)
     {
         return TETRAMINO_OK;
     }
 
-    int right_index = tetris_map->width * tetramino->y + (tetramino->x + 1);
+    int right_index = WIDTH * tetramino->y + (tetramino->x + 1);
     if (!CELL[right_index])
     {
         tetramino->x++;
@@ -246,7 +247,7 @@ int tetramino_move_right(TETRAMINO_T, TETRIS_MAP_T)
 
 int tetramino_move_right_check(TETRAMINO_T, TETRIS_MAP_T)
 {
-    if (tetramino->x >= tetris_map->width - 1)
+    if (tetramino->x >= WIDTH - 1)
         return TETRAMINO_DEAD;
 
     return TETRAMINO_OK;
@@ -291,8 +292,8 @@ void tetris_map_init(TETRIS_MAP_T, int width, int height)
     CELL = malloc(size);
     memset(CELL, 0, size);
 
-    tetris_map->width = width;
-    tetris_map->height = height;
+    WIDTH = width;
+    HEIGHT = height;
 }
 
 void tetris_row_check_fill(TETRIS_MAP_T)
@@ -304,14 +305,14 @@ void tetris_row_check_fill(TETRIS_MAP_T)
     for (row = HEIGHT; row >= 0; row--)
     {
         int tetramini = 0;
-        for (column = 0; column < tetris_map->width; column++)
+        for (column = 0; column < WIDTH; column++)
         {
             // We count how many tetramini are in the row
-            if (CELL[(row * tetris_map->width) + column] >= 1)
+            if (CELL[(row * WIDTH) + column] >= 1)
                 tetramini += 1;
         }
 
-        if (tetramini >= tetris_map->width)
+        if (tetramini >= WIDTH)
             tetris_row_destroy(tetris_map, row);
     }
 }

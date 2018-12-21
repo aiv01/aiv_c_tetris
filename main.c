@@ -1,9 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Check collision when rotating tetraminos
-//     * Bounds collisions
-//     * Map collisions
 // * Implement the correct tetramino shuffling algorithm
 // * Show a preview of the net tetramino in line
 // * Add sfx

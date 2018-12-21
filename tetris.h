@@ -42,7 +42,7 @@
 #define J_SHAPE 6
 
 static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
-static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI * 2] = 
+static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] = 
 {
     // 0 - O SHAPE
     { 
@@ -231,7 +231,7 @@ int tetramino_move_left_act(TETRAMINO_T, TETRIS_MAP_T);
 
 int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T);
-int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI * 2]);
+int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY]);
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_move_right(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T);
