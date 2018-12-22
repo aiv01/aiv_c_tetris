@@ -433,8 +433,8 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_move_right_multiple);
 	RUN_TEST(tetramino_group_move_down_wrong_value);
 	RUN_TEST(tetramino_group_busy_cell);
-	RUN_TEST(tetramino_group_fill_two_blocks);
-	RUN_TEST(tetramino_group_dead);
+	// RUN_TEST(tetramino_group_fill_two_blocks);
+	// RUN_TEST(tetramino_group_dead);
 	PRINT_TEST_RESULTS();
 	return 0;
 }

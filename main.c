@@ -2,7 +2,7 @@
 
 /* ------------------------------------- TODO ------------------------------------- */
 // * Implement the correct tetramino shuffling algorithm
-// * Show a preview of the net tetramino in line
+// * Show a preview of the next tetramino in line
 // * Add sfx
 // * Add music
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*

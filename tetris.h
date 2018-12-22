@@ -28,6 +28,8 @@
 #define MAPSIZE tetris_map->width * tetris_map->height
 #define ROTATION tetris_map->tetramino_current_rot
 #define SHAPE_TYPE tetris_map->tetramino_type
+#define QUEUE tetris_map->tetramino_queue
+#define QUEUE_ID tetris_map->tetramino_queue_id
 
 #define TETRAMINI_SHAPES 7
 #define MAX_ROTATIONS 4
@@ -40,6 +42,9 @@
 #define T_SHAPE 4
 #define Z_SHAPE 5
 #define J_SHAPE 6
+
+#define LOG_INT(x) SDL_Log("%d", x);
+#define LOG_POINTER(x) SDL_Log("%p", x);
 
 static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
 static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] = 
@@ -201,6 +206,8 @@ struct tetris_map
     int *cell;
     int tetramino_type;
     int tetramino_current_rot;
+    int *tetramino_queue;
+    int tetramino_queue_id;
 };
 
 typedef struct tetramino tetramino_t;
@@ -208,6 +215,7 @@ typedef struct tetris_map tetris_map_t;
 
 void tetramino_init(TETRAMINO_T, TETRIS_MAP_T);
 void tetris_map_init(TETRIS_MAP_T, int width, int height);
+void tetramini_generate_queue(int *queue);
 
 void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer, int size);
 void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size);
@@ -230,7 +238,7 @@ int tetramino_move_left_check(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_left_act(TETRAMINO_T, TETRIS_MAP_T);
 
 int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T);
-int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T);
+void tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY]);
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_move_right(TETRAMINI_T, TETRIS_MAP_T);
@@ -238,5 +246,12 @@ int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T);
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T);
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape);
+
+void tetris_queue_init(TETRIS_MAP_T);
+void tetris_queue_next(TETRIS_MAP_T);
+void tetris_queue_swap(TETRIS_MAP_T);
+
+static int rand_int(int n);
+void shuffle_array(int *array, int n);
 
 #endif

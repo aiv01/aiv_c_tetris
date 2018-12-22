@@ -9,14 +9,14 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
-    int random = rand() % TETRAMINI_SHAPES;
-
-    // SHAPE_TYPE = random;
-    SHAPE_TYPE = I_SHAPE;
+    SHAPE_TYPE = QUEUE[QUEUE_ID];
+    // SHAPE_TYPE = O_SHAPE;
 
     ROTATION = 0;
 
     tetramino_shape_init(tetramini, tetris_map, SHAPE_TYPE);
+
+    tetris_queue_next(tetris_map);
 }
 
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
@@ -34,7 +34,7 @@ int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T)
     ROTATION++;
     ROTATION %= tetramino_rotations[SHAPE_TYPE];
 
-    if (tetramino_group_check_rotation_map(tetramini, tetris_map, (int*)tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
+    if (tetramino_group_check_rotation_map(tetramini, tetris_map, (int *)tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
     {
         ROTATION--;
         return 0;
@@ -50,6 +50,8 @@ int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T)
     }
 
     tetramino_group_check_rotation_bounds(tetramini, tetris_map);
+
+    return 1;
 }
 
 int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY])
@@ -64,7 +66,7 @@ int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_
         current_column = tetramini[i].y;
 
         current_row += tetramini_positions[i];
-        current_column += tetramini_positions[i+4];
+        current_column += tetramini_positions[i + 4];
 
         current_index = WIDTH * current_column + current_row;
 
@@ -75,7 +77,7 @@ int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_
     return TETRAMINO_OK;
 }
 
-int tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T)
+void tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T)
 {
     int horizontal_sweep = 0;
 
@@ -294,6 +296,83 @@ void tetris_map_init(TETRIS_MAP_T, int width, int height)
 
     WIDTH = width;
     HEIGHT = height;
+    QUEUE_ID = 0;
+
+    tetris_queue_init(tetris_map);
+}
+
+void tetris_queue_init(TETRIS_MAP_T)
+{
+    // We're going to make two queues
+    int queue_size = sizeof(int) * TETRAMINI_SHAPES * 2;
+
+    QUEUE = malloc(queue_size);
+    memset(QUEUE, 0, queue_size);
+
+    // Each queue has each shape type
+    for (int i = 0; i < TETRAMINI_SHAPES * 2; i++)
+        QUEUE[i] = i % TETRAMINI_SHAPES;
+
+    // I shuffle the first queue
+    shuffle_array(QUEUE, TETRAMINI_SHAPES);
+    // Then the second one
+    shuffle_array(QUEUE + TETRAMINI_SHAPES, TETRAMINI_SHAPES);
+}
+
+void tetris_queue_next(TETRIS_MAP_T)
+{   
+    QUEUE_ID++;
+
+    // If I get the eight piece in the queue
+    // I swap the second queue with the first
+    // And create a new second queue
+    // So I can show previews of the next pieces
+    // And at the same time make new pieces
+    // How cool is that?
+    // (Needs extensive testing)
+    if (QUEUE_ID > TETRAMINI_SHAPES + 1)
+    {
+        tetris_queue_swap(tetris_map);
+        QUEUE_ID = 1;
+    }
+}
+
+void tetris_queue_swap(TETRIS_MAP_T)
+{
+    // I copy the contents of the second queue to the first one
+    memcpy(
+        QUEUE + TETRAMINI_SHAPES,
+        QUEUE,
+        sizeof(int) * TETRAMINI_SHAPES);
+    // Then I shuffle the second one
+    shuffle_array(QUEUE + TETRAMINI_SHAPES, TETRAMINI_SHAPES);
+}
+
+static int rand_int(int n)
+{
+    int limit = RAND_MAX - RAND_MAX % n;
+    int rnd;
+
+    do
+    {
+        srand(time(NULL));
+        rnd = rand();
+    } while (rnd >= limit);
+
+    return rnd % n;
+}
+
+void shuffle_array(int *array, int n)
+{
+    int i, j, tmp;
+
+    for (i = n - 1; i > 0; i--)
+    {
+        j = rand_int(i + 1);
+        tmp = array[j];
+        array[j] = array[i];
+        array[i] = tmp;
+    }
 }
 
 void tetris_row_check_fill(TETRIS_MAP_T)
