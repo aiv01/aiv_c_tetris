@@ -10,7 +10,6 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
     SHAPE_TYPE = QUEUE[QUEUE_ID];
-    // SHAPE_TYPE = O_SHAPE;
 
     ROTATION = 0;
 
@@ -317,6 +316,10 @@ void tetris_queue_init(TETRIS_MAP_T)
     shuffle_array(QUEUE, TETRAMINI_SHAPES);
     // Then the second one
     shuffle_array(QUEUE + TETRAMINI_SHAPES, TETRAMINI_SHAPES);
+
+    // Why? Because with this system I can show previews for the next shapes
+    // And at the same time make an infinite queue that has all the pieces
+    // How cool is that?
 }
 
 void tetris_queue_next(TETRIS_MAP_T)
@@ -325,15 +328,12 @@ void tetris_queue_next(TETRIS_MAP_T)
 
     // If I get the eight piece in the queue
     // I swap the second queue with the first
-    // And create a new second queue
-    // So I can show previews of the next pieces
-    // And at the same time make new pieces
-    // How cool is that?
+    // And move to the second index
     // (Needs extensive testing)
-    if (QUEUE_ID > TETRAMINI_SHAPES + 1)
+    if (QUEUE_ID > TETRAMINI_SHAPES)
     {
         tetris_queue_swap(tetris_map);
-        QUEUE_ID = 1;
+        QUEUE_ID = 0;
     }
 }
 
@@ -346,6 +346,8 @@ void tetris_queue_swap(TETRIS_MAP_T)
         sizeof(int) * TETRAMINI_SHAPES);
     // Then I shuffle the second one
     shuffle_array(QUEUE + TETRAMINI_SHAPES, TETRAMINI_SHAPES);
+    // In this way I used all the elements of the second queue
+    // To make a new queue with all the pieces
 }
 
 static int rand_int(int n)

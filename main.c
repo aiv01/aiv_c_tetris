@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Implement the correct tetramino shuffling algorithm
 // * Show a preview of the next tetramino in line
 // * Add sfx
 // * Add music
