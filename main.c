@@ -1,9 +1,13 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
+// * Death is bugged ATM
 // * Show a preview of the next tetramino in line
+// * Maybe more than one
 // * Add sfx
 // * Add music
+// * Maybe I should split tetris.c to multiple files?
+// * Maybe the pieces should rotate in both directions?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
 // * PIERA I CHOOSE YOU
 // * GOTTA TEST EM ALL

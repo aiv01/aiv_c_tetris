@@ -9,7 +9,7 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
-    SHAPE_TYPE = QUEUE[QUEUE_ID];
+    SHAPE_TYPE = T_SHAPE;
 
     ROTATION = 0;
 

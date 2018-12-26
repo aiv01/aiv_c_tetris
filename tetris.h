@@ -46,29 +46,50 @@
 #define LOG_INT(x) SDL_Log("%d", x);
 #define LOG_POINTER(x) SDL_Log("%p", x);
 
+// Tetramino rotations are based on the Nintendo version
+// Which is the only real Tetris™ by the way
+
 static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
 static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] = 
 {
     // 0 - O SHAPE
     { 
         { 
+            // 2 3
+            // 0 1
+
+            // (0, 0) (1, 0)
+            // (0, 1) (1, 1)
+
             // X POSITION
             0, 1, 0, 1,
             // Y POSITION
-            0, 0, -1, -1
+            1, 1, 0, 0
         }
     },
     // 1 - S SHAPE
     { 
-        // HORIZONTAL
         { 
+            //   O 3
+            // 1 2
+
+            //         (0, 0) (1, 0)
+            // (-1, 1) (0, 1)
+
             // X POSITION
             0, -1, 0, 1,
             // Y POSITION
             0, 1, 1, 0
         },
-        // VERTICAL
         { 
+            // 1 
+            // 0 2
+            //   3
+
+            // (0, -1)
+            // (0,  0) (1, 0)
+            //         (1, 1)
+
             // X POSITION
             0, 0, 1, 1,
             // Y POSITION
@@ -77,15 +98,27 @@ static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_
     },
     // 2 - I SHAPE
     { 
-        // HORIZONTAL
         { 
+            // 1 0 2 3
+
+            // (-1, 0) (0, 0) (1, 0) (2, 0)
+
             // X POSITION
             0, -1, 1, 2,
             // Y POSITION
             0, 0, 0, 0
         },
-        // VERTICAL
         { 
+            // 1
+            // 2
+            // 0
+            // 3
+
+            // (0, -2)
+            // (0, -1)
+            // (0,  0)
+            // (0,  1)
+
             // X POSITION
             0, 0, 0, 0,
             // Y POSITION
@@ -94,69 +127,137 @@ static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_
     },
     // 3 - L SHAPE
     { 
-        { 
+        {
+            // 1 0 2
+            //     3
+
+            // (-1, 0) (0, 0) (1, 0)
+            //                (1, 1)
+
             // X POSITION
             0, -1, 1, 1,
             // Y POSITION
             0, 0, 0, 1
         },
         { 
+            //   1
+            //   0
+            // 3 2
+
+            //         (0, -1)
+            //         (0,  0)
+            // (-1, 1) (0,  1)
+
             // X POSITION
             0, 0, 0, -1,
             // Y POSITION
             0, -1, 1, 1
         },
         { 
+            // 2
+            // 1 0 2
+
+            // (-1, -1)
+            // (-1,  0) (0, 0) (1, 0)
+
             // X POSITION
             0, -1, -1, 1,
             // Y POSITION
             0, 0, -1, 0
         },
-        { 
+        {
+            // 2 3
+            // 0
+            // 1
+
+            // (0, -1) (1, -1)
+            // (0,  0)
+            // (0,  1)
+
             // X POSITION
             0, 0, 0, 1,
             // Y POSITION
             0, 1, -1, -1
         }
     },
-    // 4 - T
+    // 4 - T SHAPE
     { 
         { 
+            //   2
+            // 1 0 3
+
+            //         (0, 0)
+            // (-1, 1) (0, 1) (1, 1)
+
             // X POSITION
             0, -1, 0, 1,
             // Y POSITION
-            0, 0, -1, 0
+            1, 1, 0, 1
         },
         { 
+            // 1
+            // 0 3
+            // 2
+
+            // (0, -1)
+            // (0,  0) (1, 0)
+            // (0,  1)
+
             // X POSITION
             0, 0, 0, 1,
             // Y POSITION
             0, -1, 1, 0
         },
         { 
+            // 1 0 3
+            //   2
+
+            // (-1, 0) (0, 0) (1, 0)
+            //         (0, 1)
+
             // X POSITION
             0, -1, 0, 1,
             // Y POSITION
             0, 0, 1, 0
         },
         { 
+            //   1
+            // 3 0
+            //   2
+
+            //         (0, -1)
+            // (-1, 0) (0,  0)
+            //         (0,  1)
+
             // X POSITION
             0, 0, 0, -1,
             // Y POSITION
             0, -1, 1, 0
         }
     },
-    // 5 - Z VARIANT SHAPE
+    // 5 - Z SHAPE
     { 
-        // HORIZONTAL
         { 
+            // 1 0
+            //   2 3
+
+            // (-1, 0) (0, 0)
+            //         (0, 1) (1, 1)
+
             // X POSITION
             0, -1, 0, 1,
             // Y POSITION
             0, 0, 1, 1
         },
-        // VERTICAL
         { 
+            //   1
+            // 0 2
+            // 3
+
+            //        (1, -1)
+            // (0, 0) (1,  0)
+            // (0, 1)
+
             // X POSITION
             0, 1, 1, 0,
             // Y POSITION
@@ -166,24 +267,52 @@ static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_
     // 6 - J SHAPE
     { 
         { 
+            // 1 0 3
+            // 2
+
+            // (-1, 0) (0, 0) (1, 0)
+            // (-1  1)
+
             // X POSITION
             0, -1, -1, 1,
             // Y POSITION
             0, 0, 1, 0
         },
         { 
+            // 3 1
+            //   0
+            //   2
+            
+            // (-1, -1) (0, -1)
+            //          (0,  0)
+            //          (0,  1)
+
             // X POSITION
             0, 0, 0, -1,
             // Y POSITION
             0, -1, 1, -1
         },
         { 
+            //     2
+            // 1 0 3
+
+            //                (1, -1)
+            // (-1, 0) (0, 0) (1,  0)
+
             // X POSITION
             0, -1, 1, 1,
             // Y POSITION
             0, 0, -1, 0
         },
         { 
+            // 2
+            // 0
+            // 1 3
+
+            // (0, -1)
+            // (0,  0)
+            // (0,  1) (1, 1)
+
             // X POSITION
             0, 0, 0, 1,
             // Y POSITION
