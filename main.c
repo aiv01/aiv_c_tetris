@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Death is bugged ATM
 // * Show a preview of the next tetramino in line
 // * Maybe more than one
 // * Add sfx
