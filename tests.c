@@ -14,10 +14,26 @@
 	tetramino_shape_init(tetramino_group, &tetris_map, O_SHAPE)
 
 #define TETRAMINO_INIT_SHAPE(width, height, shape) \
-	tetramino_t tetramino_group[TETRAMINI];      \
-	tetris_map_t tetris_map;                     \
-	tetris_map_init(&tetris_map, width, height); \
+	tetramino_t tetramino_group[TETRAMINI];        \
+	tetris_map_t tetris_map;                       \
+	tetris_map_init(&tetris_map, width, height);   \
 	tetramino_shape_init(tetramino_group, &tetris_map, shape)
+
+#define ASSERT_FIRST__BLOCK_POSITION(_x, _y) \
+	ASSERT_THAT(tetramino_group[0].x == _x); \
+	ASSERT_THAT(tetramino_group[0].y == _y);
+
+#define ASSERT_SECOND_BLOCK_POSITION(_x, _y) \
+	ASSERT_THAT(tetramino_group[1].x == _x); \
+	ASSERT_THAT(tetramino_group[1].y == _y);
+
+#define ASSERT_THIRD__BLOCK_POSITION(_x, _y) \
+	ASSERT_THAT(tetramino_group[2].x == _x); \
+	ASSERT_THAT(tetramino_group[2].y == _y);
+
+#define ASSERT_FOURTH_BLOCK_POSITION(_x, _y) \
+	ASSERT_THAT(tetramino_group[3].x == _x); \
+	ASSERT_THAT(tetramino_group[3].y == _y);
 
 TEST(tetramino_init)
 {
@@ -388,17 +404,13 @@ TEST(tetramino_group_init_s_shape)
 	// X 1 2 X X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
+	// I also added macros for blocks positions
+	// It's a basically a new language now lol
 
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 2);
-
-	ASSERT_THAT(tetramino_group[2].x == 2);
-	ASSERT_THAT(tetramino_group[2].y == 2);
-
-	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 1);
+	ASSERT_FIRST__BLOCK_POSITION(2, 1);
+	ASSERT_SECOND_BLOCK_POSITION(1, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 2);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
 }
 
 TEST(tetramino_group_init_i_shape)
@@ -410,17 +422,10 @@ TEST(tetramino_group_init_i_shape)
 	// X X X X X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
-
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
-
-	ASSERT_THAT(tetramino_group[2].x == 3);
-	ASSERT_THAT(tetramino_group[2].y == 1);
-
-	ASSERT_THAT(tetramino_group[3].x == 4);
-	ASSERT_THAT(tetramino_group[3].y == 1);
+	ASSERT_FIRST__BLOCK_POSITION(2, 1);
+	ASSERT_SECOND_BLOCK_POSITION(1, 1);
+	ASSERT_THIRD__BLOCK_POSITION(3, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(4, 1);
 }
 
 TEST(tetramino_group_init_l_shape)
@@ -432,17 +437,10 @@ TEST(tetramino_group_init_l_shape)
 	// X X X 3 X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
-
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
-
-	ASSERT_THAT(tetramino_group[2].x == 3);
-	ASSERT_THAT(tetramino_group[2].y == 1);
-
-	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_FIRST__BLOCK_POSITION(2, 1);
+	ASSERT_SECOND_BLOCK_POSITION(1, 1);
+	ASSERT_THIRD__BLOCK_POSITION(3, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 2);
 }
 
 TEST(tetramino_group_init_t_shape)
@@ -454,17 +452,10 @@ TEST(tetramino_group_init_t_shape)
 	// X 1 0 3 X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 2);
-
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 2);
-
-	ASSERT_THAT(tetramino_group[2].x == 2);
-	ASSERT_THAT(tetramino_group[2].y == 1);
-
-	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(1, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 2);
 }
 
 TEST(tetramino_group_init_z_shape)
@@ -476,17 +467,10 @@ TEST(tetramino_group_init_z_shape)
 	// X X 2 3 X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
-
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
-
-	ASSERT_THAT(tetramino_group[2].x == 2);
-	ASSERT_THAT(tetramino_group[2].y == 2);
-
-	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 2);
+	ASSERT_FIRST__BLOCK_POSITION(2, 1);
+	ASSERT_SECOND_BLOCK_POSITION(1, 1);
+	ASSERT_THIRD__BLOCK_POSITION(2, 2);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 2);
 }
 
 TEST(tetramino_group_init_j_shape)
@@ -498,17 +482,10 @@ TEST(tetramino_group_init_j_shape)
 	// X 2 X X X X
 	// X X X X X X
 
-	ASSERT_THAT(tetramino_group[0].x == 2);
-	ASSERT_THAT(tetramino_group[0].y == 1);
-
-	ASSERT_THAT(tetramino_group[1].x == 1);
-	ASSERT_THAT(tetramino_group[1].y == 1);
-
-	ASSERT_THAT(tetramino_group[2].x == 1);
-	ASSERT_THAT(tetramino_group[2].y == 2);
-
-	ASSERT_THAT(tetramino_group[3].x == 3);
-	ASSERT_THAT(tetramino_group[3].y == 1);
+	ASSERT_FIRST__BLOCK_POSITION(2, 1);
+	ASSERT_SECOND_BLOCK_POSITION(1, 1);
+	ASSERT_THIRD__BLOCK_POSITION(1, 2);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
 }
 
 // ---------------------- //
@@ -583,7 +560,7 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_init_z_shape);
 	RUN_TEST(tetramino_group_init_j_shape);
 	// RUN_TEST(tetramino_group_fill_two_blocks);
-	RUN_TEST(tetramino_group_dead);
+	// RUN_TEST(tetramino_group_dead);
 	PRINT_TEST_RESULTS();
 	return 0;
 }
