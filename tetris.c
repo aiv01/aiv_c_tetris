@@ -39,8 +39,6 @@ int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T, int amount)
     // The magic of bit shifting. Thanks Stack Overflow!
     ROTATION &= (tetramino_rotations[SHAPE_TYPE] - 1);
 
-    SDL_Log("%d", ROTATION);
-
     if (tetramino_group_check_rotation_map(tetramini, tetris_map, (int *)tetramini_positions[SHAPE_TYPE][ROTATION]) == TETRAMINO_DEAD)
     {
         ROTATION -= amount;

@@ -500,6 +500,43 @@ TEST(tetramino_group_rotate_o_shape_left)
 	// X X 0 1 X X
 	// X X X X X X
 
+	tetramino_group_rotate(tetramino_group, &tetris_map, -1);
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_o_shape_left_blocked)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	tetramino_group_rotate(tetramino_group, &tetris_map, -1);
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_o_shape_left_multiple)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	tetramino_group_rotate(tetramino_group, &tetris_map, -1);
+	tetramino_group_rotate(tetramino_group, &tetris_map, -1);
+
 	ASSERT_FIRST__BLOCK_POSITION(2, 2);
 	ASSERT_SECOND_BLOCK_POSITION(3, 2);
 	ASSERT_THIRD__BLOCK_POSITION(2, 1);
@@ -514,6 +551,43 @@ TEST(tetramino_group_rotate_o_shape_right)
 	// X X 2 3 X X
 	// X X 0 1 X X
 	// X X X X X X
+
+	tetramino_group_rotate(tetramino_group, &tetris_map, 1);
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_o_shape_right_blocked)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	tetramino_group_rotate(tetramino_group, &tetris_map, 1);
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_o_shape_right_multiple)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	tetramino_group_rotate(tetramino_group, &tetris_map, 1);
+	tetramino_group_rotate(tetramino_group, &tetris_map, 1);
 
 	ASSERT_FIRST__BLOCK_POSITION(2, 2);
 	ASSERT_SECOND_BLOCK_POSITION(3, 2);
@@ -531,6 +605,10 @@ TEST(tetramino_group_rotate_s_shape_left)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED LEFT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_s_shape_right)
@@ -543,6 +621,10 @@ TEST(tetramino_group_rotate_s_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_i_shape_left)
@@ -555,6 +637,7 @@ TEST(tetramino_group_rotate_i_shape_left)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED LEFT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_i_shape_right)
@@ -567,6 +650,10 @@ TEST(tetramino_group_rotate_i_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_l_shape_left)
@@ -591,6 +678,10 @@ TEST(tetramino_group_rotate_l_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_t_shape_left)
@@ -603,6 +694,10 @@ TEST(tetramino_group_rotate_t_shape_left)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED LEFT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_t_shape_right)
@@ -615,6 +710,10 @@ TEST(tetramino_group_rotate_t_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_z_shape_left)
@@ -627,6 +726,10 @@ TEST(tetramino_group_rotate_z_shape_left)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED LEFT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_z_shape_right)
@@ -639,6 +742,10 @@ TEST(tetramino_group_rotate_z_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_j_shape_left)
@@ -651,6 +758,10 @@ TEST(tetramino_group_rotate_j_shape_left)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED LEFT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 TEST(tetramino_group_rotate_j_shape_right)
@@ -663,6 +774,10 @@ TEST(tetramino_group_rotate_j_shape_right)
 	// X X X X X X
 
 	// ASSERT THAT HAS BEEN ROTATED RIGHT
+	ASSERT_FIRST__BLOCK_POSITION(0, 0);
+	ASSERT_SECOND_BLOCK_POSITION(0, 0);
+	ASSERT_THIRD__BLOCK_POSITION(0, 0);
+	ASSERT_FOURTH_BLOCK_POSITION(0, 0);
 }
 
 // ---------------------- //
@@ -720,6 +835,7 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_move_left_multiple);
 	RUN_TEST(check_row_filled_1x1);
 	RUN_TEST(check_row_filled_2x2);
+	// TETRAMINO MOVEMENTS
 	RUN_TEST(tetramino_group_init);
 	RUN_TEST(tetramino_group_move_down);
 	RUN_TEST(tetramino_group_move_left);
@@ -730,26 +846,62 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_move_right_multiple);
 	RUN_TEST(tetramino_group_move_down_wrong_value);
 	RUN_TEST(tetramino_group_busy_cell);
+	// SHAPE INITS
 	RUN_TEST(tetramino_group_init_s_shape);
 	RUN_TEST(tetramino_group_init_i_shape);
 	RUN_TEST(tetramino_group_init_l_shape);
 	RUN_TEST(tetramino_group_init_t_shape);
 	RUN_TEST(tetramino_group_init_z_shape);
 	RUN_TEST(tetramino_group_init_j_shape);
+	// O
 	RUN_TEST(tetramino_group_rotate_o_shape_left);
+	RUN_TEST(tetramino_group_rotate_o_shape_left_blocked);
+	RUN_TEST(tetramino_group_rotate_o_shape_left_multiple);
 	RUN_TEST(tetramino_group_rotate_o_shape_right);
-	RUN_TEST(tetramino_group_rotate_s_shape_left);
-	RUN_TEST(tetramino_group_rotate_s_shape_right);
-	RUN_TEST(tetramino_group_rotate_i_shape_left);
-	RUN_TEST(tetramino_group_rotate_i_shape_right);
-	RUN_TEST(tetramino_group_rotate_l_shape_left);
-	RUN_TEST(tetramino_group_rotate_l_shape_right);
-	RUN_TEST(tetramino_group_rotate_t_shape_left);
-	RUN_TEST(tetramino_group_rotate_t_shape_right);
-	RUN_TEST(tetramino_group_rotate_z_shape_left);
-	RUN_TEST(tetramino_group_rotate_z_shape_right);
-	RUN_TEST(tetramino_group_rotate_j_shape_left);
-	RUN_TEST(tetramino_group_rotate_j_shape_right);
+	RUN_TEST(tetramino_group_rotate_o_shape_right_blocked);
+	RUN_TEST(tetramino_group_rotate_o_shape_right_multiple);
+	// S
+	// RUN_TEST(tetramino_group_rotate_s_shape_left);
+	// RUN_TEST(tetramino_group_rotate_s_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_s_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_s_shape_right);
+	// RUN_TEST(tetramino_group_rotate_s_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_s_shape_right_multiple);
+	// I
+	// RUN_TEST(tetramino_group_rotate_i_shape_left);
+	// RUN_TEST(tetramino_group_rotate_i_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_i_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_i_shape_right);
+	// RUN_TEST(tetramino_group_rotate_i_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_i_shape_right_multiple);
+	// L
+	// RUN_TEST(tetramino_group_rotate_l_shape_left);
+	// RUN_TEST(tetramino_group_rotate_l_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_l_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_l_shape_right);
+	// RUN_TEST(tetramino_group_rotate_l_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_l_shape_right_multiple);
+	// T
+	// RUN_TEST(tetramino_group_rotate_t_shape_left);
+	// RUN_TEST(tetramino_group_rotate_t_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_t_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_t_shape_right);
+	// RUN_TEST(tetramino_group_rotate_t_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_t_shape_right_multiple);
+	// Z
+	// RUN_TEST(tetramino_group_rotate_z_shape_left);
+	// RUN_TEST(tetramino_group_rotate_z_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_z_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_z_shape_right);
+	// RUN_TEST(tetramino_group_rotate_z_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_z_shape_right_multiple);
+	// J
+	// RUN_TEST(tetramino_group_rotate_j_shape_left);
+	// RUN_TEST(tetramino_group_rotate_j_shape_left_blocked);
+	// RUN_TEST(tetramino_group_rotate_j_shape_left_multiple);
+	// RUN_TEST(tetramino_group_rotate_j_shape_right);
+	// RUN_TEST(tetramino_group_rotate_j_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_j_shape_right_multiple);
 	// RUN_TEST(tetramino_group_fill_two_blocks);
 	// RUN_TEST(tetramino_group_dead);
 	PRINT_TEST_RESULTS();
