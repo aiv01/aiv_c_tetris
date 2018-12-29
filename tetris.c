@@ -9,17 +9,15 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
-    SHAPE_TYPE = QUEUE[QUEUE_ID];
-
     ROTATION = 0;
-
-    tetramino_shape_init(tetramini, tetris_map, SHAPE_TYPE);
-
+    tetramino_shape_init(tetramini, tetris_map, QUEUE[QUEUE_ID]);
     tetris_queue_next(tetris_map);
 }
 
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
 {
+    SHAPE_TYPE = shape;
+
     for (int i = 0; i < TETRAMINI; i++)
     {
         tetramini[i].x = -1 + tetramini_positions[shape][ROTATION][i] + WIDTH / 2;
@@ -32,7 +30,7 @@ int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T, int amount)
 {
     // The O Tetramino cannot rotate, so we exit the function
     if (SHAPE_TYPE == O_SHAPE)
-        return 1;
+        return 0;
 
     ROTATION += amount;
     // That is basically a modulus that always returns a positive number
