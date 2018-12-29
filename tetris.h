@@ -347,9 +347,9 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T);
 void tetris_map_init(TETRIS_MAP_T, int width, int height);
 void tetramini_generate_queue(int *queue);
 
-void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer, int size);
-void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer, int size);
-void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer, int size);
+void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer);
+void tetris_map_draw(tetris_map_t *map, SDL_Renderer *renderer);
+void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer);
 
 void tetris_row_check_fill(TETRIS_MAP_T);
 void tetris_row_destroy(TETRIS_MAP_T, int row);

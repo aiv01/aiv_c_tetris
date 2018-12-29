@@ -21,45 +21,45 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
     SDL_RenderDrawLine(renderer, rect->x - 2 + rect->w, rect->y + 1, rect->x - 2 + rect->w, rect->y - 2 + rect->h);
 }
 
-void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer, int size)
+void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer)
 {
     SDL_Rect rect;
     rect.x = 0;
     rect.y = 0;
-    rect.h = size * HEIGHT;
-    rect.w = size * WIDTH;
+    rect.h = CELL_SIZE * HEIGHT;
+    rect.w = CELL_SIZE * WIDTH;
 
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &rect);
 
-    rect.x = size * WIDTH;
+    rect.x = CELL_SIZE * WIDTH;
     rect.y = 0;
-    rect.h = size * HEIGHT;
-    rect.w = size * RIGHT_MENU_SIZE;
+    rect.h = CELL_SIZE * HEIGHT;
+    rect.w = CELL_SIZE * RIGHT_MENU_SIZE;
 
     SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
     SDL_RenderFillRect(renderer, &rect);
 }
 
-void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer, int size)
+void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer)
 {
     SDL_Rect rect;
-    rect.x = tetramino->x * size;
-    rect.y = tetramino->y * size;
-    rect.h = size;
-    rect.w = size;
+    rect.x = tetramino->x * CELL_SIZE;
+    rect.y = tetramino->y * CELL_SIZE;
+    rect.h = CELL_SIZE;
+    rect.w = CELL_SIZE;
     _draw_rect_internal(renderer, &rect, tetramino->color_id);
 }
 
-void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer, int size)
+void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer)
 {
     for (int i = 0; i < 4; i++)
-        tetramino_draw(&tetramini[i], renderer, size);
+        tetramino_draw(&tetramini[i], renderer);
 }
 
-void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer, int size)
+void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer)
 {
-    field_draw(tetris_map, renderer, size);
+    field_draw(tetris_map, renderer);
 
     int y, x;
     for (y = 0; y < HEIGHT; y++)
@@ -70,10 +70,10 @@ void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer, int size)
             if (tetris_map->cell[index] != 0)
             {
                 SDL_Rect rect;
-                rect.x = x * size;
-                rect.y = y * size;
-                rect.h = size;
-                rect.w = size;
+                rect.x = x * CELL_SIZE;
+                rect.y = y * CELL_SIZE;
+                rect.h = CELL_SIZE;
+                rect.w = CELL_SIZE;
                 _draw_rect_internal(renderer, &rect, tetris_map->cell[index]);
             }
         }

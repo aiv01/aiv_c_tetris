@@ -1,6 +1,7 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
+// * Add the right Tetramini colors
 // * Add the ability to hold one tetramino
 // * Add instant falling button
 // * Display the placement of the current tetramino
@@ -128,10 +129,10 @@ int main(int argc, char **argv)
 		}
 
 		// Map draw
-		tetris_map_draw(&map, renderer, 30);
+		tetris_map_draw(&map, renderer);
 
 		// Tetramino draw
-		tetramino_group_draw(tetramino_group, renderer, CELL_SIZE);
+		tetramino_group_draw(tetramino_group, renderer);
 
 		// Draw previews of next pieces
 		draw_next_pieces(&map, renderer);
