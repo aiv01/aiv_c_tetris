@@ -9,13 +9,13 @@ void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
-    ROTATION = 0;
     tetramino_shape_init(tetramini, tetris_map, QUEUE[QUEUE_ID]);
     tetris_queue_next(tetris_map);
 }
 
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
 {
+    ROTATION = 0;
     SHAPE_TYPE = shape;
 
     for (int i = 0; i < TETRAMINI; i++)

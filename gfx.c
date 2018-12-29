@@ -29,7 +29,15 @@ void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer, int size)
     rect.h = size * HEIGHT;
     rect.w = size * WIDTH;
 
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 127);
+    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+    SDL_RenderFillRect(renderer, &rect);
+
+    rect.x = size * 10;
+    rect.y = 0;
+    rect.h = size * HEIGHT;
+    rect.w = size * 6;
+
+    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
     SDL_RenderFillRect(renderer, &rect);
 }
 
@@ -69,5 +77,33 @@ void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer, int size)
                 _draw_rect_internal(renderer, &rect, tetris_map->cell[index]);
             }
         }
+    }
+}
+
+void draw_next_pieces(TETRIS_MAP_T, SDL_Renderer *renderer)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        draw_piece_preview(tetris_map, renderer, i);
+    }
+}
+
+void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index)
+{
+    int start_x = (HORIZONTAL_CELLS + 2) * CELL_SIZE;
+    int start_y = CELL_SIZE + CELL_SIZE * (4 * index);
+
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        int shape = QUEUE[index+QUEUE_ID];
+        int cell_x = (tetramini_positions[shape][0][i] * CELL_SIZE);
+        int cell_y = (tetramini_positions[shape][0][i + 4] * CELL_SIZE);
+
+        SDL_Rect rect;  
+        rect.x = start_x + cell_x;
+        rect.y = start_y + cell_y;
+        rect.h = CELL_SIZE;
+        rect.w = CELL_SIZE;
+        _draw_rect_internal(renderer, &rect, shape + 1);
     }
 }

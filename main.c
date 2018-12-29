@@ -1,8 +1,10 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Show a preview of the next tetramino in line
-// * Maybe more than one
+// * Add the ability to hold one tetramino
+// * Add instant falling button
+// * Display the placement of the current tetramino
+// * Add a score system
 // * Add sfx
 // * Add music
 // * Maybe I should split tetris.c to multiple files?
@@ -28,7 +30,7 @@ int main(int argc, char **argv)
 		"tetris", 
 		SDL_WINDOWPOS_UNDEFINED, 
 		SDL_WINDOWPOS_UNDEFINED, 
-		HORIZONTAL_CELLS * CELL_SIZE, 
+		(6 + HORIZONTAL_CELLS) * CELL_SIZE, 
 		VERTICAL_CELLS * CELL_SIZE, 
 		SDL_WINDOW_OPENGL
 	);
@@ -130,6 +132,9 @@ int main(int argc, char **argv)
 
 		// Tetramino draw
 		tetramino_group_draw(tetramino_group, renderer, CELL_SIZE);
+
+		// Draw previews of next pieces
+		draw_next_pieces(&map, renderer);
 
 		SDL_RenderPresent(renderer);
 	}

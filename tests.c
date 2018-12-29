@@ -370,7 +370,7 @@ TEST(tetramino_group_move_right_multiple)
 // not really sure about this
 TEST(tetramino_group_move_down_wrong_value)
 {
-	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+	TETRAMINO_BOX_GROUP_SETUP(2, 3);
 
 	tetramino_group->y = 100;
 	tetramino_group_move_down(tetramino_group, &tetris_map);
@@ -380,7 +380,7 @@ TEST(tetramino_group_move_down_wrong_value)
 
 TEST(tetramino_group_busy_cell)
 {
-	TETRAMINO_BOX_GROUP_SETUP(2, 2);
+	TETRAMINO_BOX_GROUP_SETUP(3, 3);
 	tetramino_group_move_down(tetramino_group, &tetris_map);
 
 	tetramino_t tetramino_group2[TETRAMINI];
