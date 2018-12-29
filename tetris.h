@@ -7,16 +7,28 @@
 
 // --- GAME CONFIGURATION ---
 
-#define HORIZONTAL_CELLS 10
-#define VERTICAL_CELLS 20
-#define CELL_SIZE 30
-#define RIGHT_MENU_SIZE 6
+static const int HORIZONTAL_CELLS = 10;
+static const int VERTICAL_CELLS = 20;
+static const int CELL_SIZE = 30;
+static const int RIGHT_MENU_SIZE = 6;
+
+static const int TETRAMINI = 4;
+static const int TETRAMINI_SHAPES = 7;
+static const int MAX_ROTATIONS = 4;
+static const int TETRAMINI_XY = TETRAMINI * 2;
+
+static const int O_SHAPE = 0;
+static const int S_SHAPE = 1;
+static const int I_SHAPE = 2;
+static const int L_SHAPE = 3;
+static const int T_SHAPE = 4; 
+static const int Z_SHAPE = 5;
+static const int J_SHAPE = 6;
+
+static const int TETRAMINO_OK = 0;
+static const int TETRAMINO_DEAD = -1;
 
 // --------------------------
-
-#define TETRAMINO_OK 0
-#define TETRAMINO_DEAD -1
-#define TETRAMINI 4
 
 #define TETRAMINI_T tetramino_t tetramini[TETRAMINI]
 #define TETRAMINO_T tetramino_t *tetramino
@@ -31,18 +43,6 @@
 #define SHAPE_TYPE tetris_map->tetramino_type
 #define QUEUE tetris_map->tetramino_queue
 #define QUEUE_ID tetris_map->tetramino_queue_id
-
-#define TETRAMINI_SHAPES 7
-#define MAX_ROTATIONS 4
-#define TETRAMINI_XY TETRAMINI * 2
-
-#define O_SHAPE 0
-#define S_SHAPE 1
-#define I_SHAPE 2
-#define L_SHAPE 3
-#define T_SHAPE 4
-#define Z_SHAPE 5
-#define J_SHAPE 6
 
 #define LOG_INT(x) SDL_Log("%d", x);
 #define LOG_POINTER(x) SDL_Log("%p", x);
