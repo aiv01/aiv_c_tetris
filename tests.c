@@ -390,6 +390,8 @@ TEST(tetramino_group_busy_cell)
 	ASSERT_THAT(tetramino_group2->y == 1);
 }
 
+// New tests!
+
 TEST(tetramino_group_init_s_shape)
 {
 	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
@@ -489,6 +491,180 @@ TEST(tetramino_group_init_j_shape)
 	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
 }
 
+TEST(tetramino_group_rotate_o_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_o_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, O_SHAPE);
+
+	// X X X X X X
+	// X X 2 3 X X
+	// X X 0 1 X X
+	// X X X X X X
+
+	ASSERT_FIRST__BLOCK_POSITION(2, 2);
+	ASSERT_SECOND_BLOCK_POSITION(3, 2);
+	ASSERT_THIRD__BLOCK_POSITION(2, 1);
+	ASSERT_FOURTH_BLOCK_POSITION(3, 1);
+}
+
+TEST(tetramino_group_rotate_s_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
+
+	// X X X X X X
+	// X X 0 3 X X
+	// X 1 2 X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_s_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
+
+	// X X X X X X
+	// X X 0 3 X X
+	// X 1 2 X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
+TEST(tetramino_group_rotate_i_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, I_SHAPE);
+
+	// X X X X X X
+	// X 1 0 2 3 X
+	// X X X X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_i_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, I_SHAPE);
+
+	// X X X X X X
+	// X 1 0 2 3 X
+	// X X X X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
+TEST(tetramino_group_rotate_l_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, L_SHAPE);
+
+	// X X X X X X
+	// X 1 0 2 X X
+	// X X X 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_l_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, L_SHAPE);
+
+	// X X X X X X
+	// X 1 0 2 X X
+	// X X X 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
+TEST(tetramino_group_rotate_t_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, T_SHAPE);
+
+	// X X X X X X
+	// X X 2 X X X
+	// X 1 0 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_t_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, T_SHAPE);
+
+	// X X X X X X
+	// X X 2 X X X
+	// X 1 0 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
+TEST(tetramino_group_rotate_z_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, Z_SHAPE);
+
+	// X X X X X X
+	// X 1 0 X X X
+	// X X 2 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_z_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, Z_SHAPE);
+
+	// X X X X X X
+	// X 1 0 X X X
+	// X X 2 3 X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
+TEST(tetramino_group_rotate_j_shape_left)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, J_SHAPE);
+
+	// X X X X X X
+	// X 1 0 3 X X
+	// X 2 X X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED LEFT
+}
+
+TEST(tetramino_group_rotate_j_shape_right)
+{
+	TETRAMINO_INIT_SHAPE(6, 4, J_SHAPE);
+
+	// X X X X X X
+	// X 1 0 3 X X
+	// X 2 X X X X
+	// X X X X X X
+
+	// ASSERT THAT HAS BEEN ROTATED RIGHT
+}
+
 // ---------------------- //
 //  PIERA YOU'RE DONE <3  //
 // ---------------------- //
@@ -560,6 +736,20 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_init_t_shape);
 	RUN_TEST(tetramino_group_init_z_shape);
 	RUN_TEST(tetramino_group_init_j_shape);
+	RUN_TEST(tetramino_group_rotate_o_shape_left);
+	RUN_TEST(tetramino_group_rotate_o_shape_right);
+	RUN_TEST(tetramino_group_rotate_s_shape_left);
+	RUN_TEST(tetramino_group_rotate_s_shape_right);
+	RUN_TEST(tetramino_group_rotate_i_shape_left);
+	RUN_TEST(tetramino_group_rotate_i_shape_right);
+	RUN_TEST(tetramino_group_rotate_l_shape_left);
+	RUN_TEST(tetramino_group_rotate_l_shape_right);
+	RUN_TEST(tetramino_group_rotate_t_shape_left);
+	RUN_TEST(tetramino_group_rotate_t_shape_right);
+	RUN_TEST(tetramino_group_rotate_z_shape_left);
+	RUN_TEST(tetramino_group_rotate_z_shape_right);
+	RUN_TEST(tetramino_group_rotate_j_shape_left);
+	RUN_TEST(tetramino_group_rotate_j_shape_right);
 	// RUN_TEST(tetramino_group_fill_two_blocks);
 	// RUN_TEST(tetramino_group_dead);
 	PRINT_TEST_RESULTS();
