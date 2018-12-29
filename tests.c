@@ -407,6 +407,7 @@ TEST(tetramino_group_init_s_shape)
 	// I also added macros for blocks positions
 	// It's a basically a new language now lol
 
+	//                           X  Y
 	ASSERT_FIRST__BLOCK_POSITION(2, 1);
 	ASSERT_SECOND_BLOCK_POSITION(1, 2);
 	ASSERT_THIRD__BLOCK_POSITION(2, 2);

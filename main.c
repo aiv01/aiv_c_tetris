@@ -6,7 +6,6 @@
 // * Add sfx
 // * Add music
 // * Maybe I should split tetris.c to multiple files?
-// * Maybe the pieces should rotate in both directions?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
 // * PIERA I CHOOSE YOU
 // * GOTTA TEST EM ALL
@@ -113,7 +112,15 @@ int main(int argc, char **argv)
 				}
 				else if (event.key.keysym.sym == SDLK_UP)
 				{
-					tetramino_group_rotate(tetramino_group, &map);
+					// Implement instant falling
+				}
+				else if (event.key.keysym.sym == SDLK_z)
+				{
+					tetramino_group_rotate(tetramino_group, &map, -1);
+				}
+				else if (event.key.keysym.sym == SDLK_x)
+				{
+					tetramino_group_rotate(tetramino_group, &map, 1);
 				}
 			}
 		}

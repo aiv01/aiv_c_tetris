@@ -49,7 +49,7 @@
 // Tetramino rotations are based on the Nintendo version
 // Which is the only real Tetris™ by the way
 
-static const int tetramino_rotations[] = { 0, 2, 2, 4, 4, 2, 4 };
+static const int tetramino_rotations[] = { 1, 2, 2, 4, 4, 2, 4 };
 static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] = 
 {
     // 0 - O SHAPE
@@ -366,7 +366,7 @@ int tetramino_move_left(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_left_check(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_left_act(TETRAMINO_T, TETRIS_MAP_T);
 
-int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T);
+int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T, int amount);
 void tetramino_group_check_rotation_bounds(TETRAMINI_T, TETRIS_MAP_T);
 int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY]);
 int tetramino_group_move_down(TETRAMINI_T, TETRIS_MAP_T);
