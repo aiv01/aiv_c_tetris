@@ -10,6 +10,7 @@
 #define HORIZONTAL_CELLS 10
 #define VERTICAL_CELLS 20
 #define CELL_SIZE 30
+#define RIGHT_MENU_SIZE 6
 
 // --------------------------
 
