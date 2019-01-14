@@ -649,6 +649,9 @@ TEST(tetramino_group_rotate_s_shape_left_blocked)
 
 TEST(tetramino_group_rotate_s_shape_left_multiple)
 {
+	// Since the s shape has only two rotations
+	// It will return at the original spawn position
+
 	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
 
 	// X X X X X X
@@ -667,6 +670,9 @@ TEST(tetramino_group_rotate_s_shape_left_multiple)
 
 TEST(tetramino_group_rotate_s_shape_right)
 {
+	// The s shape has just two rotations
+	// So the left and the right will be the same
+
 	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
 
 	// X X 1 X X X
@@ -674,8 +680,6 @@ TEST(tetramino_group_rotate_s_shape_right)
 	// X X X 3 X X
 	// X X X X X X
 
-	// The S shape has just two rotations
-	// So the left and the right are the same
 	tetramino_group_rotate(tetramino_group, &tetris_map, 1);
 
 	ASSERT_FIRST__BLOCK_POSITION(2, 1);
@@ -716,6 +720,9 @@ TEST(tetramino_group_rotate_s_shape_right_blocked)
 
 TEST(tetramino_group_rotate_s_shape_right_multiple)
 {
+	// This will be the same as the left rotation
+	// As the s shape has only two rotations
+
 	TETRAMINO_INIT_SHAPE(6, 4, S_SHAPE);
 
 	// X X X X X X
