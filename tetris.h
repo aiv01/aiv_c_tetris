@@ -21,7 +21,7 @@ static const int O_SHAPE = 0;
 static const int S_SHAPE = 1;
 static const int I_SHAPE = 2;
 static const int L_SHAPE = 3;
-static const int T_SHAPE = 4; 
+static const int T_SHAPE = 4;
 static const int Z_SHAPE = 5;
 static const int J_SHAPE = 6;
 
@@ -50,277 +50,231 @@ static const int TETRAMINO_DEAD = -1;
 // Tetramino rotations are based on the Nintendo version
 // Which is the only real Tetris™ by the way
 
-static const int tetramino_rotations[] = { 1, 2, 2, 4, 4, 2, 4 };
-static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] = 
-{
-    // 0 - O SHAPE
-    { 
-        { 
-            // 2 3
-            // 0 1
-
-            // (0, 0) (1, 0)
-            // (0, 1) (1, 1)
-
-            // X POSITION
-            0, 1, 0, 1,
-            // Y POSITION
-            1, 1, 0, 0
-        }
-    },
-    // 1 - S SHAPE
-    { 
-        { 
-            //   O 3
-            // 1 2
-
-            //         (0, 0) (1, 0)
-            // (-1, 1) (0, 1)
-
-            // X POSITION
-            0, -1, 0, 1,
-            // Y POSITION
-            0, 1, 1, 0
-        },
-        { 
-            // 1 
-            // 0 2
-            //   3
-
-            // (0, -1)
-            // (0,  0) (1, 0)
-            //         (1, 1)
-
-            // X POSITION
-            0, 0, 1, 1,
-            // Y POSITION
-            0, -1, 0, 1
-        }
-    },
-    // 2 - I SHAPE
-    { 
-        { 
-            // 1 0 2 3
-
-            // (-1, 0) (0, 0) (1, 0) (2, 0)
-
-            // X POSITION
-            0, -1, 1, 2,
-            // Y POSITION
-            0, 0, 0, 0
-        },
-        { 
-            // 1
-            // 2
-            // 0
-            // 3
-
-            // (0, -2)
-            // (0, -1)
-            // (0,  0)
-            // (0,  1)
-
-            // X POSITION
-            0, 0, 0, 0,
-            // Y POSITION
-            0, -2, -1, 1
-        }
-    },
-    // 3 - L SHAPE
-    { 
+static const int tetramino_rotations[] = {1, 2, 2, 4, 4, 2, 4};
+static const int tetramini_positions[TETRAMINI_SHAPES][MAX_ROTATIONS][TETRAMINI_XY] =
+    {
+        // 0 - O SHAPE
         {
-            // 1 0 2
-            //     3
+            {// 2 3
+             // 0 1
 
-            // (-1, 0) (0, 0) (1, 0)
-            //                (1, 1)
+             // (0, 0) (1, 0)
+             // (0, 1) (1, 1)
 
-            // X POSITION
-            0, -1, 1, 1,
-            // Y POSITION
-            0, 0, 0, 1
-        },
-        { 
-            //   1
-            //   0
-            // 3 2
-
-            //         (0, -1)
-            //         (0,  0)
-            // (-1, 1) (0,  1)
-
-            // X POSITION
-            0, 0, 0, -1,
-            // Y POSITION
-            0, -1, 1, 1
-        },
-        { 
-            // 2
-            // 1 0 2
-
-            // (-1, -1)
-            // (-1,  0) (0, 0) (1, 0)
-
-            // X POSITION
-            0, -1, -1, 1,
-            // Y POSITION
-            0, 0, -1, 0
-        },
+             // X POSITION
+             0, 1, 0, 1,
+             // Y POSITION
+             1, 1, 0, 0}},
+        // 1 - S SHAPE
         {
-            // 2 3
-            // 0
-            // 1
+            {//   O 3
+             // 1 2
 
-            // (0, -1) (1, -1)
-            // (0,  0)
-            // (0,  1)
+             //         (0, 0) (1, 0)
+             // (-1, 1) (0, 1)
 
-            // X POSITION
-            0, 0, 0, 1,
-            // Y POSITION
-            0, 1, -1, -1
-        }
-    },
-    // 4 - T SHAPE
-    { 
-        { 
-            //   2
-            // 1 0 3
+             // X POSITION
+             0, -1, 0, 1,
+             // Y POSITION
+             0, 1, 1, 0},
+            {// 1
+             // 0 2
+             //   3
 
-            //         (0, 0)
-            // (-1, 1) (0, 1) (1, 1)
+             // (0, -1)
+             // (0,  0) (1, 0)
+             //         (1, 1)
 
-            // X POSITION
-            0, -1, 0, 1,
-            // Y POSITION
-            1, 1, 0, 1
-        },
-        { 
-            // 1
-            // 0 3
-            // 2
+             // X POSITION
+             0, 0, 1, 1,
+             // Y POSITION
+             0, -1, 0, 1}},
+        // 2 - I SHAPE
+        {
+            {// 1 0 2 3
 
-            // (0, -1)
-            // (0,  0) (1, 0)
-            // (0,  1)
+             // (-1, 0) (0, 0) (1, 0) (2, 0)
 
-            // X POSITION
-            0, 0, 0, 1,
-            // Y POSITION
-            0, -1, 1, 0
-        },
-        { 
-            // 1 0 3
-            //   2
+             // X POSITION
+             0, -1, 1, 2,
+             // Y POSITION
+             0, 0, 0, 0},
+            {// 1
+             // 2
+             // 0
+             // 3
 
-            // (-1, 0) (0, 0) (1, 0)
-            //         (0, 1)
+             // (0, -2)
+             // (0, -1)
+             // (0,  0)
+             // (0,  1)
 
-            // X POSITION
-            0, -1, 0, 1,
-            // Y POSITION
-            0, 0, 1, 0
-        },
-        { 
-            //   1
-            // 3 0
-            //   2
+             // X POSITION
+             0, 0, 0, 0,
+             // Y POSITION
+             0, -2, -1, 1}},
+        // 3 - L SHAPE
+        {
+            {// 1 0 2
+             //     3
 
-            //         (0, -1)
-            // (-1, 0) (0,  0)
-            //         (0,  1)
+             // (-1, 0) (0, 0) (1, 0)
+             //                (1, 1)
 
-            // X POSITION
-            0, 0, 0, -1,
-            // Y POSITION
-            0, -1, 1, 0
-        }
-    },
-    // 5 - Z SHAPE
-    { 
-        { 
-            // 1 0
-            //   2 3
+             // X POSITION
+             0, -1, 1, 1,
+             // Y POSITION
+             0, 0, 0, 1},
+            {//   1
+             //   0
+             // 3 2
 
-            // (-1, 0) (0, 0)
-            //         (0, 1) (1, 1)
+             //         (0, -1)
+             //         (0,  0)
+             // (-1, 1) (0,  1)
 
-            // X POSITION
-            0, -1, 0, 1,
-            // Y POSITION
-            0, 0, 1, 1
-        },
-        { 
-            //   1
-            // 0 2
-            // 3
+             // X POSITION
+             0, 0, 0, -1,
+             // Y POSITION
+             0, -1, 1, 1},
+            {// 2
+             // 1 0 2
 
-            //        (1, -1)
-            // (0, 0) (1,  0)
-            // (0, 1)
+             // (-1, -1)
+             // (-1,  0) (0, 0) (1, 0)
 
-            // X POSITION
-            0, 1, 1, 0,
-            // Y POSITION
-            0, -1, 0, 1
-        }
-    },
-    // 6 - J SHAPE
-    { 
-        { 
-            // 1 0 3
-            // 2
+             // X POSITION
+             0, -1, -1, 1,
+             // Y POSITION
+             0, 0, -1, 0},
+            {// 2 3
+             // 0
+             // 1
 
-            // (-1, 0) (0, 0) (1, 0)
-            // (-1  1)
+             // (0, -1) (1, -1)
+             // (0,  0)
+             // (0,  1)
 
-            // X POSITION
-            0, -1, -1, 1,
-            // Y POSITION
-            0, 0, 1, 0
-        },
-        { 
-            // 3 1
-            //   0
-            //   2
-            
-            // (-1, -1) (0, -1)
-            //          (0,  0)
-            //          (0,  1)
+             // X POSITION
+             0, 0, 0, 1,
+             // Y POSITION
+             0, 1, -1, -1}},
+        // 4 - T SHAPE
+        {
+            {//   2
+             // 1 0 3
 
-            // X POSITION
-            0, 0, 0, -1,
-            // Y POSITION
-            0, -1, 1, -1
-        },
-        { 
-            //     2
-            // 1 0 3
+             //         (0, 0)
+             // (-1, 1) (0, 1) (1, 1)
 
-            //                (1, -1)
-            // (-1, 0) (0, 0) (1,  0)
+             // X POSITION
+             0, -1, 0, 1,
+             // Y POSITION
+             1, 1, 0, 1},
+            {// 1
+             // 0 3
+             // 2
 
-            // X POSITION
-            0, -1, 1, 1,
-            // Y POSITION
-            0, 0, -1, 0
-        },
-        { 
-            // 2
-            // 0
-            // 1 3
+             // (0, -1)
+             // (0,  0) (1, 0)
+             // (0,  1)
 
-            // (0, -1)
-            // (0,  0)
-            // (0,  1) (1, 1)
+             // X POSITION
+             0, 0, 0, 1,
+             // Y POSITION
+             0, -1, 1, 0},
+            {// 1 0 3
+             //   2
 
-            // X POSITION
-            0, 0, 0, 1,
-            // Y POSITION
-            0, 1, -1, 1
-        }
-    }
-};
+             // (-1, 0) (0, 0) (1, 0)
+             //         (0, 1)
+
+             // X POSITION
+             0, -1, 0, 1,
+             // Y POSITION
+             0, 0, 1, 0},
+            {//   1
+             // 3 0
+             //   2
+
+             //         (0, -1)
+             // (-1, 0) (0,  0)
+             //         (0,  1)
+
+             // X POSITION
+             0, 0, 0, -1,
+             // Y POSITION
+             0, -1, 1, 0}},
+        // 5 - Z SHAPE
+        {
+            {// 1 0
+             //   2 3
+
+             // (-1, 0) (0, 0)
+             //         (0, 1) (1, 1)
+
+             // X POSITION
+             0, -1, 0, 1,
+             // Y POSITION
+             0, 0, 1, 1},
+            {//   1
+             // 0 2
+             // 3
+
+             //        (1, -1)
+             // (0, 0) (1,  0)
+             // (0, 1)
+
+             // X POSITION
+             0, 1, 1, 0,
+             // Y POSITION
+             0, -1, 0, 1}},
+        // 6 - J SHAPE
+        {
+            {// 1 0 3
+             // 2
+
+             // (-1, 0) (0, 0) (1, 0)
+             // (-1  1)
+
+             // X POSITION
+             0, -1, -1, 1,
+             // Y POSITION
+             0, 0, 1, 0},
+            {// 3 1
+             //   0
+             //   2
+
+             // (-1, -1) (0, -1)
+             //          (0,  0)
+             //          (0,  1)
+
+             // X POSITION
+             0, 0, 0, -1,
+             // Y POSITION
+             0, -1, 1, -1},
+            {//     2
+             // 1 0 3
+
+             //                (1, -1)
+             // (-1, 0) (0, 0) (1,  0)
+
+             // X POSITION
+             0, -1, 1, 1,
+             // Y POSITION
+             0, 0, -1, 0},
+            {// 2
+             // 0
+             // 1 3
+
+             // (0, -1)
+             // (0,  0)
+             // (0,  1) (1, 1)
+
+             // X POSITION
+             0, 0, 0, 1,
+             // Y POSITION
+             0, 1, -1, 1}}};
 
 struct tetramino
 {
@@ -381,6 +335,7 @@ void tetris_queue_init(TETRIS_MAP_T);
 void tetris_queue_next(TETRIS_MAP_T);
 void tetris_queue_swap(TETRIS_MAP_T);
 
+int move_down_and_check_death(TETRAMINI_T, TETRIS_MAP_T);
 static int rand_int(int n);
 void shuffle_array(int *array, int n);
 

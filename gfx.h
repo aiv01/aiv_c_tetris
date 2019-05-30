@@ -4,15 +4,15 @@
 #include "tetris.h"
 #include <SDL2/SDL.h>
 
-const SDL_Color T_COLOR[] = 
-{
-    { 255, 127, 127 },
-    { 127, 255, 127 },
-    { 127, 127, 255 },
-    { 255, 255, 127 },
-    { 255, 127, 255 },
-    { 127, 255, 255 },
-    { 127, 127, 127 } // MMH
+const SDL_Color T_COLOR[] =
+    {
+        {255, 226, 0},  // O
+        {0, 187, 50},   // S
+        {0, 174, 231},  // I
+        {255, 145, 0},  // L
+        {159, 23, 144}, // T
+        {255, 0, 36},   // Z
+        {0, 90, 162}    // J
 };
 
 static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int color);

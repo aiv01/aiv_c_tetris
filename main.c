@@ -1,11 +1,8 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add the right Tetramini colors
 // * Add the ability to hold one tetramino
-// * Add instant falling button
 // * Display the placement of the current tetramino
-// * Add a score system
 // * Add sfx
 // * Add music
 // * Maybe I should split tetris.c to multiple files?
@@ -26,15 +23,13 @@ int main(int argc, char **argv)
 		goto cleanup;
 	}
 
-	SDL_Window *window = SDL_CreateWindow
-	(
-		"tetris", 
-		SDL_WINDOWPOS_UNDEFINED, 
-		SDL_WINDOWPOS_UNDEFINED, 
-		(6 + HORIZONTAL_CELLS) * CELL_SIZE, 
-		VERTICAL_CELLS * CELL_SIZE, 
-		SDL_WINDOW_OPENGL
-	);
+	SDL_Window *window = SDL_CreateWindow(
+		"tetris",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		(6 + HORIZONTAL_CELLS) * CELL_SIZE,
+		VERTICAL_CELLS * CELL_SIZE,
+		SDL_WINDOW_OPENGL);
 
 	if (!window)
 	{
@@ -42,7 +37,7 @@ int main(int argc, char **argv)
 		ret = -1;
 		goto cleanup2;
 	}
-	
+
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	if (!renderer)
 	{
@@ -59,6 +54,8 @@ int main(int argc, char **argv)
 
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
+
+	int instant_falling = 0;
 
 	for (;;)
 	{
@@ -115,7 +112,22 @@ int main(int argc, char **argv)
 				}
 				else if (event.key.keysym.sym == SDLK_UP)
 				{
-					// Implement instant falling
+					instant_falling = 1;
+					while (instant_falling == 1)
+					{
+						if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
+						{
+							for (int i = 0; i < TETRAMINI; i++)
+							{
+								if (tetramino_group[i].y == 1)
+									goto cleanup4;
+							}
+
+							tetramino_random_shape_init(tetramino_group, &map);
+
+							instant_falling = 0;
+						}
+					}
 				}
 				else if (event.key.keysym.sym == SDLK_z)
 				{

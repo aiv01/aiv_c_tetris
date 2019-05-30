@@ -327,7 +327,7 @@ void tetris_queue_init(TETRIS_MAP_T)
 }
 
 void tetris_queue_next(TETRIS_MAP_T)
-{   
+{
     QUEUE_ID++;
 
     // If I get the eight piece in the queue
@@ -410,4 +410,20 @@ void tetris_row_destroy(TETRIS_MAP_T, int row)
         CELL,
         sizeof(int) * (WIDTH * row));
     memset(CELL + WIDTH, 0, sizeof(int) * WIDTH);
+}
+
+int move_down_and_check_death(TETRAMINI_T, TETRIS_MAP_T)
+{
+    if (tetramino_group_move_down(tetramini, &tetris_map) == TETRAMINO_DEAD)
+    {
+        for (int i = 0; i < TETRAMINI; i++)
+        {
+            if (tetramini[i].y == 1)
+                return -1;
+        }
+
+        tetramino_random_shape_init(tetramini, &tetris_map);
+
+        return 0;
+    }
 }

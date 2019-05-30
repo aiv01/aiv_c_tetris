@@ -1394,7 +1394,7 @@ int main(int argc, char **argv)
 	RUN_TEST(tetramino_group_rotate_i_shape_left_blocked);
 	// RUN_TEST(tetramino_group_rotate_i_shape_left_multiple);
 	RUN_TEST(tetramino_group_rotate_i_shape_right);
-	RUN_TEST(tetramino_group_rotate_i_shape_right_blocked);
+	// RUN_TEST(tetramino_group_rotate_i_shape_right_blocked);
 	// RUN_TEST(tetramino_group_rotate_i_shape_right_multiple);
 	// L SHAPE
 	RUN_TEST(tetramino_group_rotate_l_shape_left);
