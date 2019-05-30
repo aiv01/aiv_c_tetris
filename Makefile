@@ -32,6 +32,7 @@ tests.o: tests.c
 test: tests.o tetris.o
 	$(CC) -o $(BINARY_TESTS) $(LDFLAGS) $^
 	./$(BINARY_TESTS)
+	rm -f *.o tetris tetris_tests
 
 clean: 
-	rm -f *.o tetris
+	rm -f *.o tetris tetris_tests

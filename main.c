@@ -1,16 +1,15 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Fix warnings
 // * Add the ability to hold one tetramino
-// * Display the placement of the current tetramino
+// * Display the placement preview of the current tetramino
 // * Add sfx
 // * Add music
 // * Maybe I should split tetris.c to multiple files?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
 // * PIERA I CHOOSE YOU
 // * GOTTA TEST EM ALL
-// * Optional: add animations? But just after we finish the game
+// * Optional: Add animations? But just after we finish the game
 // * ^ Lol seriously when?
 /* -------------------------------------------------------------------------------- */
 
