@@ -412,9 +412,9 @@ void tetris_row_destroy(TETRIS_MAP_T, int row)
     memset(CELL + WIDTH, 0, sizeof(int) * WIDTH);
 }
 
-int move_down_and_check_death(TETRAMINI_T, TETRIS_MAP_T)
+int move_down_loop(TETRAMINI_T, TETRIS_MAP_T)
 {
-    if (tetramino_group_move_down(tetramini, &tetris_map) == TETRAMINO_DEAD)
+    if (tetramino_group_move_down(tetramini, tetris_map) == TETRAMINO_DEAD)
     {
         for (int i = 0; i < TETRAMINI; i++)
         {
@@ -422,8 +422,10 @@ int move_down_and_check_death(TETRAMINI_T, TETRIS_MAP_T)
                 return -1;
         }
 
-        tetramino_random_shape_init(tetramini, &tetris_map);
+        tetramino_random_shape_init(tetramini, tetris_map);
 
-        return 0;
+        return 1;
     }
+
+    return 0;
 }

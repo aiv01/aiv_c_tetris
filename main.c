@@ -1,6 +1,7 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
+// * Fix warnings
 // * Add the ability to hold one tetramino
 // * Display the placement of the current tetramino
 // * Add sfx
@@ -67,16 +68,9 @@ int main(int argc, char **argv)
 
 		if (timer <= 0)
 		{
-			if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
-			{
-				for (int i = 0; i < TETRAMINI; i++)
-				{
-					if (tetramino_group[i].y == 1)
-						goto cleanup4;
-				}
+			if (move_down_loop(tetramino_group, &map) == TETRAMINO_DEAD)
+				goto cleanup4;
 
-				tetramino_random_shape_init(tetramino_group, &map);
-			}
 			timer = 1000;
 		}
 
@@ -90,16 +84,9 @@ int main(int argc, char **argv)
 			{
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
-					{
-						for (int i = 0; i < TETRAMINI; i++)
-						{
-							if (tetramino_group[i].y == 1)
-								goto cleanup4;
-						}
+					if (move_down_loop(tetramino_group, &map) == TETRAMINO_DEAD)
+						goto cleanup4;
 
-						tetramino_random_shape_init(tetramino_group, &map);
-					}
 					timer = 1000;
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT)
@@ -115,18 +102,13 @@ int main(int argc, char **argv)
 					instant_falling = 1;
 					while (instant_falling == 1)
 					{
-						if (tetramino_group_move_down(tetramino_group, &map) == TETRAMINO_DEAD)
-						{
-							for (int i = 0; i < TETRAMINI; i++)
-							{
-								if (tetramino_group[i].y == 1)
-									goto cleanup4;
-							}
+						int result = move_down_loop(tetramino_group, &map);
 
-							tetramino_random_shape_init(tetramino_group, &map);
+						if (result == TETRAMINO_DEAD)
+							goto cleanup4;
 
+						if (result == 1)
 							instant_falling = 0;
-						}
 					}
 				}
 				else if (event.key.keysym.sym == SDLK_z)

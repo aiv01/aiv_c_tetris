@@ -335,8 +335,9 @@ void tetris_queue_init(TETRIS_MAP_T);
 void tetris_queue_next(TETRIS_MAP_T);
 void tetris_queue_swap(TETRIS_MAP_T);
 
-int move_down_and_check_death(TETRAMINI_T, TETRIS_MAP_T);
 static int rand_int(int n);
 void shuffle_array(int *array, int n);
+
+int move_down_loop(TETRAMINI_T, TETRIS_MAP_T);
 
 #endif
