@@ -1,5 +1,4 @@
 #include "tetris.h"
-#include <stdio.h>
 
 void tetramino_init(TETRAMINO_T, TETRIS_MAP_T)
 {

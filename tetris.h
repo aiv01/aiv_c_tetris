@@ -1,9 +1,11 @@
 #ifndef _TETRIS_H_
 #define _TETRIS_H_
 
+#include <SDL2/SDL.h>
 #include <string.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
+#include <stdio.h>
+#include "sfx.h"
 
 // --- GAME CONFIGURATION ---
 

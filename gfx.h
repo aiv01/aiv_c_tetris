@@ -1,8 +1,8 @@
 #ifndef _GFX_H_
 #define _GFX_H_
 
-#include "tetris.h"
 #include <SDL2/SDL.h>
+#include "tetris.h"
 
 const SDL_Color T_COLOR[] =
     {

@@ -1,5 +1,4 @@
 #include "gfx.h"
-#include "tetris.h"
 
 static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int color)
 {

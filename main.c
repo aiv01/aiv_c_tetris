@@ -52,6 +52,8 @@ int main(int argc, char **argv)
 	tetramino_t tetramino_group[TETRAMINI];
 	tetramino_random_shape_init(tetramino_group, &map);
 
+	music_play();
+
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
 

@@ -1,7 +1,7 @@
 CC=clang
 CPPCHECK=cppcheck
 CFLAGS=-Wall -O3
-LDFLAGS=-lSDL2
+LDFLAGS=-lSDL2 -lSDL2_mixer
 BINARY=tetris
 BINARY_TESTS=tetris_tests
 
@@ -10,8 +10,9 @@ ifeq ($(OS),Windows_NT)
 	BINARY_TESTS:=$(BINARY_TESTS).exe
 endif
 
-tetris: main.o tetris.o gfx.o
+tetris: main.o tetris.o gfx.o sfx.o
 	$(CC) -o $(BINARY) $(LDFLAGS) $^
+	./$(BINARY)
 
 main.o: main.c
 	$(CC) -c -o $@ $(CFLAGS) $^
@@ -22,6 +23,10 @@ tetris.o: tetris.c tetris.h
 	$(CPPCHECK) $^
 
 gfx.o: gfx.c tetris.h
+	$(CC) -c -o $@ $(CFLAGS) $<
+	$(CPPCHECK) $^
+
+sfx.o: sfx.c tetris.h
 	$(CC) -c -o $@ $(CFLAGS) $<
 	$(CPPCHECK) $^
 
