@@ -1,7 +1,7 @@
 CC=clang
 CPPCHECK=cppcheck
 CFLAGS=-Wall -O3
-LDFLAGS=-lSDL2 -lSDL2_mixer
+LDFLAGS=-lSDL2
 BINARY=tetris
 BINARY_TESTS=tetris_tests
 

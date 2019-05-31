@@ -4,7 +4,6 @@
 // * Add the ability to hold one tetramino
 // * Display the placement preview of the current tetramino
 // * Add sfx
-// * Add music
 // * Maybe I should split tetris.c to multiple files?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
 // * PIERA I CHOOSE YOU
@@ -46,13 +45,18 @@ int main(int argc, char **argv)
 		goto cleanup3;
 	}
 
+	Uint8 *music_buffer = NULL;
+	if (music_play(music_buffer) == -1)
+	{
+		ret = -1;
+		goto cleanup3;
+	}
+
 	tetris_map_t map;
 	tetris_map_init(&map, HORIZONTAL_CELLS, VERTICAL_CELLS);
 
 	tetramino_t tetramino_group[TETRAMINI];
 	tetramino_random_shape_init(tetramino_group, &map);
-
-	music_play();
 
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
@@ -137,8 +141,10 @@ int main(int argc, char **argv)
 cleanup4:
 	SDL_DestroyRenderer(renderer);
 cleanup3:
+
 	SDL_DestroyWindow(window);
 cleanup2:
+	// SDL_FreeWAV(music_buffer); // It has issues
 	SDL_Quit();
 cleanup:
 	return ret;

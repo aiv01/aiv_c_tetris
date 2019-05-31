@@ -1,28 +1,59 @@
 #include "sfx.h"
 
-static const char *MY_COOL_MP3 = "music.mp3";
+#define FREQ 44100;
 
-int music_play()
+static Uint8 *audio_pos;
+static Uint32 audio_len;
+
+static int volume = 64;
+static int pitch_delta = 0;
+
+void my_audio_callback(void *userdata, Uint8 *stream, int sample_length)
 {
-    int result = 0;
-    int flags = MIX_INIT_MP3;
+    SDL_memset(stream, 0, sample_length);
 
-    if (SDL_Init(SDL_INIT_AUDIO) == -1)
+    if (audio_len == 0)
+        return;
+
+    if (sample_length > audio_len)
+        sample_length = audio_len;
+
+    SDL_MixAudio(stream, audio_pos, sample_length, volume);
+
+    audio_pos += sample_length + pitch_delta;
+    audio_len -= sample_length;
+}
+
+int music_play(Uint8 *wav_buffer)
+{
+    if (SDL_Init(SDL_INIT_AUDIO))
     {
-        SDL_Log("Failed to init SDL\n");
+        SDL_Log("Init error: %s", SDL_GetError());
         return -1;
     }
 
-    if (flags != (result = Mix_Init(flags)))
+    SDL_AudioSpec wav_spec;
+    Uint32 wav_length;
+
+    if (SDL_LoadWAV("music.wav", &wav_spec, &wav_buffer, &wav_length) == NULL)
     {
-        SDL_Log("Could not initialize mixer (result: %d).\n", result);
-        SDL_Log("Mix_Init: %s\n", Mix_GetError());
+        fprintf(stderr, "Could not open test.wav: %s\n", SDL_GetError());
         return -1;
     }
 
-    Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
-    Mix_Music *music = Mix_LoadMUS(MY_COOL_MP3);
-    Mix_PlayMusic(music, 1);
+    wav_spec.callback = my_audio_callback;
+    wav_spec.userdata = NULL;
+
+    audio_pos = wav_buffer;
+    audio_len = wav_length;
+
+    if (SDL_OpenAudio(&wav_spec, NULL) < 0)
+    {
+        fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
+        return -1;
+    }
+
+    SDL_PauseAudio(0);
 
     return 0;
 }

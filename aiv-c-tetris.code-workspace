@@ -11,7 +11,12 @@
 			"tetris.h": "c",
 			"sdl.h": "c",
 			"sdl_mixer.h": "c",
-			"sfx.h": "c"
+			"sfx.h": "c",
+			"stdio.h": "c",
+			"out123.h": "c",
+			"stdlib.h": "c",
+			"mpg123.h": "c",
+			"fmod.h": "c"
 		}
 	}
 }
