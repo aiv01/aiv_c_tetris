@@ -24,21 +24,22 @@ void my_audio_callback(void *userdata, Uint8 *stream, int sample_length)
     audio_len -= sample_length;
 }
 
-int music_play(Uint8 *wav_buffer)
+Uint8 *music_play()
 {
     if (SDL_Init(SDL_INIT_AUDIO))
     {
         SDL_Log("Init error: %s", SDL_GetError());
-        return -1;
+        return NULL;
     }
 
     SDL_AudioSpec wav_spec;
     Uint32 wav_length;
+    Uint8 *wav_buffer;
 
     if (SDL_LoadWAV("music.wav", &wav_spec, &wav_buffer, &wav_length) == NULL)
     {
-        fprintf(stderr, "Could not open test.wav: %s\n", SDL_GetError());
-        return -1;
+        SDL_Log("Could not open music.wav: %s\n", SDL_GetError());
+        return NULL;
     }
 
     wav_spec.callback = my_audio_callback;
@@ -49,11 +50,11 @@ int music_play(Uint8 *wav_buffer)
 
     if (SDL_OpenAudio(&wav_spec, NULL) < 0)
     {
-        fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
-        return -1;
+        SDL_Log("Couldn't open audio: %s\n", SDL_GetError());
+        return NULL;
     }
 
     SDL_PauseAudio(0);
 
-    return 0;
+    return wav_buffer;
 }

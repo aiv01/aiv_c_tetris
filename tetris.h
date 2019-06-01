@@ -7,33 +7,39 @@
 #include <stdio.h>
 #include "sfx.h"
 
+#define ever \
+    ;        \
+    ;
+
 // --- GAME CONFIGURATION ---
 
-static const int HORIZONTAL_CELLS = 10;
-static const int VERTICAL_CELLS = 20;
-static const int CELL_SIZE = 30;
-static const int RIGHT_MENU_SIZE = 6;
+#define HORIZONTAL_CELLS 10
+#define VERTICAL_CELLS 20
+#define CELL_SIZE 30
+#define RIGHT_MENU_SIZE 6
 
-static const int TETRAMINI = 4;
-static const int TETRAMINI_SHAPES = 7;
-static const int MAX_ROTATIONS = 4;
-static const int TETRAMINI_XY = TETRAMINI * 2;
+#define TETRAMINI 4
+#define TETRAMINI_SHAPES 7
+#define MAX_ROTATIONS 4
+#define TETRAMINI_XY TETRAMINI * 2
 
-static const int O_SHAPE = 0;
-static const int S_SHAPE = 1;
-static const int I_SHAPE = 2;
-static const int L_SHAPE = 3;
-static const int T_SHAPE = 4;
-static const int Z_SHAPE = 5;
-static const int J_SHAPE = 6;
+#define O_SHAPE 0
+#define S_SHAPE 1
+#define I_SHAPE 2
+#define L_SHAPE 3
+#define T_SHAPE 4
+#define Z_SHAPE 5
+#define J_SHAPE 6
 
-static const int TETRAMINO_OK = 0;
-static const int TETRAMINO_DEAD = -1;
+#define TETRAMINO_OK 0
+#define TETRAMINO_DEAD -1
 
 // --------------------------
 
 #define TETRAMINI_T tetramino_t tetramini[TETRAMINI]
 #define TETRAMINO_T tetramino_t *tetramino
+#define TETRAMINI_PREVIEW_T tetramino_preview_t tetramini_preview[TETRAMINI]
+#define TETRAMINO_PREVIEW_T tetramino_preview_t *tetramino_preview
 #define TETRIS_MAP_T tetris_map_t *tetris_map
 
 #define CELL tetris_map->cell
@@ -315,7 +321,9 @@ int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T);
 
 int tetramino_move_down(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_down_check(TETRAMINO_T, TETRIS_MAP_T);
+int tetramino_move_down_check_(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T);
+int tetramino_move_down_act_(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_right(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_right_check(TETRAMINO_T, TETRIS_MAP_T);
 int tetramino_move_right_act(TETRAMINO_T, TETRIS_MAP_T);
@@ -332,6 +340,11 @@ int tetramino_group_move_left(TETRAMINI_T, TETRIS_MAP_T);
 
 void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T);
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape);
+void tetramino_preview_init(TETRAMINI_T);
+
+void tetramino_preview_update(tetramino_t tetramini_preview[TETRAMINI], TETRAMINI_T, TETRIS_MAP_T);
+int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T, int amount);
+int tetramino_group_check_rotation_map(TETRAMINI_T, TETRIS_MAP_T, int tetramini_positions[TETRAMINI_XY]);
 
 void tetris_queue_init(TETRIS_MAP_T);
 void tetris_queue_next(TETRIS_MAP_T);

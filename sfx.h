@@ -4,6 +4,6 @@
 #include <SDL2/SDL.h>
 
 void my_audio_callback(void *userdata, Uint8 *stream, int sample_length);
-int music_play(Uint8 *wav_buffer);
+Uint8 *music_play();
 
 #endif

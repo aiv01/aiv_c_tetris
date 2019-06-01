@@ -16,8 +16,13 @@ const SDL_Color T_COLOR[] =
 };
 
 static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int color);
+static void _draw_rect_preview(SDL_Renderer *renderer, SDL_Rect *rect, int color);
+
 void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer);
 void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer);
+void tetramino_preview_draw(TETRAMINO_T, SDL_Renderer *renderer);
+void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer);
+void tetramino_group_preview_draw(TETRAMINI_T, SDL_Renderer *renderer);
 void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer);
 void draw_next_pieces(TETRIS_MAP_T, SDL_Renderer *renderer);
 void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index);

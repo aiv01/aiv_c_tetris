@@ -6,7 +6,7 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
     // And colors ranges from 0-5 so...
     color--;
 
-    // Innter shape
+    // Internal shape
     SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderFillRect(renderer, rect);
 
@@ -16,6 +16,26 @@ static void _draw_rect_internal(SDL_Renderer *renderer, SDL_Rect *rect, int colo
 
     // Light shade
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawLine(renderer, rect->x + 1, rect->y + 1, rect->x - 2 + rect->w, rect->y + 1);
+    SDL_RenderDrawLine(renderer, rect->x - 2 + rect->w, rect->y + 1, rect->x - 2 + rect->w, rect->y - 2 + rect->h);
+}
+
+static void _draw_rect_preview(SDL_Renderer *renderer, SDL_Rect *rect, int color)
+{
+    // Blocks colors ranges from 1-6
+    // And colors ranges from 0-5 so...
+    color--;
+
+    // Internal shape
+    // SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
+    // SDL_RenderFillRect(renderer, rect);
+
+    // Outer border
+    SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
+    SDL_RenderDrawRect(renderer, rect);
+
+    // Light shade
+    SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderDrawLine(renderer, rect->x + 1, rect->y + 1, rect->x - 2 + rect->w, rect->y + 1);
     SDL_RenderDrawLine(renderer, rect->x - 2 + rect->w, rect->y + 1, rect->x - 2 + rect->w, rect->y - 2 + rect->h);
 }
@@ -50,10 +70,26 @@ void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer)
     _draw_rect_internal(renderer, &rect, tetramino->color_id);
 }
 
+void tetramino_preview_draw(TETRAMINO_T, SDL_Renderer *renderer)
+{
+    SDL_Rect rect;
+    rect.x = tetramino->x * CELL_SIZE;
+    rect.y = tetramino->y * CELL_SIZE;
+    rect.h = CELL_SIZE;
+    rect.w = CELL_SIZE;
+    _draw_rect_preview(renderer, &rect, tetramino->color_id);
+}
+
 void tetramino_group_draw(TETRAMINI_T, SDL_Renderer *renderer)
 {
     for (int i = 0; i < 4; i++)
         tetramino_draw(&tetramini[i], renderer);
+}
+
+void tetramino_group_preview_draw(TETRAMINI_T, SDL_Renderer *renderer)
+{
+    for (int i = 0; i < 4; i++)
+        tetramino_preview_draw(&tetramini[i], renderer);
 }
 
 void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer)
@@ -82,9 +118,7 @@ void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer)
 void draw_next_pieces(TETRIS_MAP_T, SDL_Renderer *renderer)
 {
     for (int i = 0; i < 5; i++)
-    {
         draw_piece_preview(tetris_map, renderer, i);
-    }
 }
 
 void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index)

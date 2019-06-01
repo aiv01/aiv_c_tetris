@@ -2,7 +2,6 @@
 
 /* ------------------------------------- TODO ------------------------------------- */
 // * Add the ability to hold one tetramino
-// * Display the placement preview of the current tetramino
 // * Add sfx
 // * Maybe I should split tetris.c to multiple files?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
@@ -14,12 +13,10 @@
 
 int main(int argc, char **argv)
 {
-	int ret = 0;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
 		SDL_Log("unable to initialize SDL2: %s", SDL_GetError());
-		ret = -1;
-		goto cleanup;
+		goto cleanup1;
 	}
 
 	SDL_Window *window = SDL_CreateWindow(
@@ -33,7 +30,6 @@ int main(int argc, char **argv)
 	if (!window)
 	{
 		SDL_Log("unable to create window: %s", SDL_GetError());
-		ret = -1;
 		goto cleanup2;
 	}
 
@@ -41,15 +37,14 @@ int main(int argc, char **argv)
 	if (!renderer)
 	{
 		SDL_Log("unable to create renderer: %s", SDL_GetError());
-		ret = -1;
 		goto cleanup3;
 	}
 
-	Uint8 *music_buffer = NULL;
-	if (music_play(music_buffer) == -1)
+	Uint8 *music_buffer = music_play();
+	if (!music_buffer)
 	{
-		ret = -1;
-		goto cleanup3;
+		SDL_Log("unable to create music player: %s", SDL_GetError());
+		goto cleanup4;
 	}
 
 	tetris_map_t map;
@@ -58,12 +53,15 @@ int main(int argc, char **argv)
 	tetramino_t tetramino_group[TETRAMINI];
 	tetramino_random_shape_init(tetramino_group, &map);
 
+	tetramino_t tetramino_preview_group[TETRAMINI];
+	tetramino_preview_init(tetramino_preview_group);
+
 	int timer = 1000;
 	Uint32 last_ticks = SDL_GetTicks();
 
 	int instant_falling = 0;
 
-	for (;;)
+	for (ever)
 	{
 		SDL_Event event;
 
@@ -127,8 +125,15 @@ int main(int argc, char **argv)
 			}
 		}
 
+		// Instant map clean (a bit slow)
+		// tetris_row_check_fill(&map);
+
 		// Map draw
 		tetris_map_draw(&map, renderer);
+
+		// Tetramino preview draw
+		tetramino_preview_update(tetramino_preview_group, tetramino_group, &map);
+		tetramino_group_preview_draw(tetramino_preview_group, renderer);
 
 		// Tetramino draw
 		tetramino_group_draw(tetramino_group, renderer);
@@ -139,13 +144,12 @@ int main(int argc, char **argv)
 		SDL_RenderPresent(renderer);
 	}
 cleanup4:
+	SDL_FreeWAV(music_buffer);
 	SDL_DestroyRenderer(renderer);
 cleanup3:
-
 	SDL_DestroyWindow(window);
 cleanup2:
-	// SDL_FreeWAV(music_buffer); // It has issues
 	SDL_Quit();
-cleanup:
-	return ret;
+cleanup1:
+	return 0;
 }

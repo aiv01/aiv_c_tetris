@@ -25,6 +25,37 @@ void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
     }
 }
 
+void tetramino_preview_init(TETRAMINI_T)
+{
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        tetramini[i].x = -1;
+        tetramini[i].y = -1;
+        tetramini[i].color_id = 0;
+    }
+}
+
+void tetramino_preview_update(tetramino_t tetramini_preview[TETRAMINI], TETRAMINI_T, TETRIS_MAP_T)
+{
+    // memset(tetramini_preview, 0, sizeof(tetramino_t) * TETRAMINI);
+    memcpy(tetramini_preview, tetramini, sizeof(tetramino_t) * TETRAMINI);
+
+    for (ever)
+    {
+        for (int i = 0; i < TETRAMINI; i++)
+        {
+            if (tetramino_move_down_check_(&tetramini_preview[i], tetris_map) == TETRAMINO_DEAD)
+                goto end;
+        }
+
+        for (int i = 0; i < TETRAMINI; i++)
+            tetramino_move_down_act_(&tetramini_preview[i], tetris_map);
+    }
+
+end:
+    return;
+}
+
 int tetramino_group_rotate(TETRAMINI_T, TETRIS_MAP_T, int amount)
 {
     // The O Tetramino cannot rotate, so we exit the function
@@ -198,6 +229,19 @@ int tetramino_move_down_check(TETRAMINO_T, TETRIS_MAP_T)
     return TETRAMINO_OK;
 }
 
+int tetramino_move_down_check_(TETRAMINO_T, TETRIS_MAP_T)
+{
+    int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
+
+    if (tetramino->y + 1 >= HEIGHT)
+        return TETRAMINO_DEAD;
+
+    if (CELL[next_index] >= 1)
+        return TETRAMINO_DEAD;
+
+    return TETRAMINO_OK;
+}
+
 int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T)
 {
     int current_index = WIDTH * tetramino->y + tetramino->x;
@@ -214,6 +258,18 @@ int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T)
     }
 
     tetris_row_check_fill(tetris_map);
+
+    return TETRAMINO_OK;
+}
+
+int tetramino_move_down_act_(TETRAMINO_T, TETRIS_MAP_T)
+{
+    int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
+
+    if (CELL[next_index] == 0)
+        tetramino->y += 1;
+    else
+        return TETRAMINO_DEAD;
 
     return TETRAMINO_OK;
 }
