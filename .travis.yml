@@ -6,10 +6,7 @@ addons:
   apt:
     packages:
     - libsdl2-dev
-    - cmake
-    - cmake
-    - doxygen
-    - graphviz
+    - cppcheck
     
 matrix:
   include:
@@ -24,13 +21,13 @@ matrix:
     compiler: gcc
     before_install:
     - brew update
-    - brew install
-        sdl2
+    - brew install sdl2
+    - brew install cppcheck
   - os: osx
     compiler: clang
     before_install:
     - brew update
-    - brew install
-        sdl2
+    - brew install sdl2
+    - brew install cppcheck
 
 script: make
