@@ -9,6 +9,7 @@
 // * GOTTA TEST EM ALL
 // * Optional: Add animations? But just after we finish the game
 // * ^ Lol seriously when?
+// * Optional: Add support for T-spins and test them
 /* -------------------------------------------------------------------------------- */
 
 int main(int argc, char **argv)
