@@ -15,12 +15,12 @@ int main(int argc, char **argv)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
-		SDL_Log("unable to initialize SDL2: %s", SDL_GetError());
+		SDL_Log("Unable to initialize SDL2: %s", SDL_GetError());
 		goto cleanup1;
 	}
 
 	SDL_Window *window = SDL_CreateWindow(
-		"tetris",
+		"Pierettini Tetris",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		(6 + HORIZONTAL_CELLS) * CELL_SIZE,
@@ -29,21 +29,21 @@ int main(int argc, char **argv)
 
 	if (!window)
 	{
-		SDL_Log("unable to create window: %s", SDL_GetError());
+		SDL_Log("Unable to create window: %s", SDL_GetError());
 		goto cleanup2;
 	}
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	if (!renderer)
 	{
-		SDL_Log("unable to create renderer: %s", SDL_GetError());
+		SDL_Log("Unable to create renderer: %s", SDL_GetError());
 		goto cleanup3;
 	}
 
 	Uint8 *music_buffer = music_play();
 	if (!music_buffer)
 	{
-		SDL_Log("unable to create music player: %s", SDL_GetError());
+		SDL_Log("Unable to create music player: %s", SDL_GetError());
 		goto cleanup4;
 	}
 
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 		// Map draw
 		tetris_map_draw(&map, renderer);
 
-		// Tetramino preview draw
+		// Tetramino preview update and draw
 		tetramino_preview_update(tetramino_preview_group, tetramino_group, &map);
 		tetramino_group_preview_draw(tetramino_preview_group, renderer);
 
