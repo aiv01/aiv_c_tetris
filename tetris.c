@@ -198,9 +198,7 @@ int tetramino_move_down(TETRAMINO_T, TETRIS_MAP_T)
     }
 
     if (CELL[next_index] == 0)
-    {
         tetramino->y += 1;
-    }
     else
     {
         CELL[current_index] = 1;
@@ -248,9 +246,7 @@ int tetramino_move_down_act(TETRAMINO_T, TETRIS_MAP_T)
     int next_index = WIDTH * (tetramino->y + 1) + tetramino->x;
 
     if (CELL[next_index] == 0)
-    {
         tetramino->y += 1;
-    }
     else
     {
         CELL[current_index] = 1;
@@ -292,15 +288,11 @@ int tetramini_to_map(TETRAMINI_T, TETRIS_MAP_T)
 int tetramino_move_right(TETRAMINO_T, TETRIS_MAP_T)
 {
     if (tetramino->x >= WIDTH - 1)
-    {
         return TETRAMINO_OK;
-    }
 
     int right_index = WIDTH * tetramino->y + (tetramino->x + 1);
     if (!CELL[right_index])
-    {
         tetramino->x++;
-    }
 
     return TETRAMINO_OK;
 }
@@ -322,9 +314,7 @@ int tetramino_move_right_act(TETRAMINO_T, TETRIS_MAP_T)
 int tetramino_move_left(TETRAMINO_T, TETRIS_MAP_T)
 {
     if (tetramino->x <= 0)
-    {
         return TETRAMINO_OK;
-    }
 
     tetramino->x--;
 

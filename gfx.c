@@ -33,11 +33,6 @@ static void _draw_rect_preview(SDL_Renderer *renderer, SDL_Rect *rect, int color
     // Outer border
     SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
     SDL_RenderDrawRect(renderer, rect);
-
-    // Light shade
-    SDL_SetRenderDrawColor(renderer, T_COLOR[color].r, T_COLOR[color].g, T_COLOR[color].b, 255);
-    SDL_RenderDrawLine(renderer, rect->x + 1, rect->y + 1, rect->x - 2 + rect->w, rect->y + 1);
-    SDL_RenderDrawLine(renderer, rect->x - 2 + rect->w, rect->y + 1, rect->x - 2 + rect->w, rect->y - 2 + rect->h);
 }
 
 void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer)
