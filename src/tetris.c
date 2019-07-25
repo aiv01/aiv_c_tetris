@@ -346,6 +346,8 @@ void tetris_map_init(TETRIS_MAP_T, int width, int height)
     HEIGHT = height;
     QUEUE_ID = 0;
 
+    tetris_map->tetramino_hold_type = 0;
+
     tetris_queue_init(tetris_map);
 }
 

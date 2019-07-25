@@ -89,6 +89,7 @@ void tetramino_group_preview_draw(TETRAMINI_T, SDL_Renderer *renderer)
         tetramino_preview_draw(&tetramini[i], renderer);
 }
 
+// Display single Tetris pieces that has been set
 void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer)
 {
     field_draw(tetris_map, renderer);
@@ -126,6 +127,26 @@ void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index)
     for (int i = 0; i < TETRAMINI; i++)
     {
         int shape = QUEUE[index + QUEUE_ID];
+        int cell_x = (tetramini_positions[shape][0][i] * CELL_SIZE);
+        int cell_y = (tetramini_positions[shape][0][i + 4] * CELL_SIZE);
+
+        SDL_Rect rect;
+        rect.x = start_x + cell_x;
+        rect.y = start_y + cell_y;
+        rect.h = CELL_SIZE;
+        rect.w = CELL_SIZE;
+        _draw_rect_internal(renderer, &rect, shape + 1);
+    }
+}
+
+void draw_hold_piece(TETRIS_MAP_T, SDL_Renderer *renderer)
+{
+    int start_x = CELL_SIZE * 2;
+    int start_y = CELL_SIZE;
+
+    for (int i = 0; i < TETRAMINI; i++)
+    {
+        int shape = tetris_map->tetramino_hold_type;
         int cell_x = (tetramini_positions[shape][0][i] * CELL_SIZE);
         int cell_y = (tetramini_positions[shape][0][i + 4] * CELL_SIZE);
 

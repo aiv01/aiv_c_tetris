@@ -301,6 +301,7 @@ struct tetris_map
     int tetramino_current_rot;
     int *tetramino_queue;
     int tetramino_queue_id;
+    int tetramino_hold_type;
 };
 
 typedef struct tetramino tetramino_t;

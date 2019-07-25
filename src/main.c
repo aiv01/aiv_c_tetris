@@ -144,6 +144,7 @@ int main(int argc, char **argv)
 		tetramino_group_draw(tetramino_group, renderer);
 
 		// Draw previews of next pieces
+		draw_hold_piece(&map, renderer);
 		draw_next_pieces(&map, renderer);
 
 		SDL_RenderPresent(renderer);

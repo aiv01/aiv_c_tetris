@@ -26,5 +26,6 @@ void tetramino_group_preview_draw(TETRAMINI_T, SDL_Renderer *renderer);
 void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer);
 void draw_next_pieces(TETRIS_MAP_T, SDL_Renderer *renderer);
 void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index);
+void draw_hold_piece(TETRIS_MAP_T, SDL_Renderer *renderer);
 
 #endif
