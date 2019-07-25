@@ -17,6 +17,7 @@
 #define VERTICAL_CELLS 20
 #define CELL_SIZE 30
 #define RIGHT_MENU_SIZE 6
+#define LEFT_MENU_SIZE 6
 
 #define TETRAMINI 4
 #define TETRAMINI_SHAPES 7

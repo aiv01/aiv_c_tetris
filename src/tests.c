@@ -1350,7 +1350,7 @@ TEST(check_queue_init)
 
 	tetris_queue_init(&tetris_map);
 
-	// TODO: Test more condition
+	// TODO: Test more conditions
 	ASSERT_THAT(tetris_map.tetramino_queue != 0);
 	ASSERT_THAT(tetris_map.tetramino_queue_id == 0);
 }

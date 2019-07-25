@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 		"Pierettini Tetris",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		(6 + HORIZONTAL_CELLS) * CELL_SIZE,
+		(12 + HORIZONTAL_CELLS) * CELL_SIZE,
 		VERTICAL_CELLS * CELL_SIZE,
 		SDL_WINDOW_OPENGL);
 
@@ -41,12 +41,12 @@ int main(int argc, char **argv)
 		goto cleanup3;
 	}
 
-	Uint8 *music_buffer = music_play();
-	if (!music_buffer)
-	{
-		SDL_Log("Unable to create music player: %s", SDL_GetError());
-		goto cleanup4;
-	}
+	// Uint8 *music_buffer = music_play();
+	// if (!music_buffer)
+	// {
+	// 	SDL_Log("Unable to create music player: %s", SDL_GetError());
+	// 	goto cleanup4;
+	// }
 
 	tetris_map_t map;
 	tetris_map_init(&map, HORIZONTAL_CELLS, VERTICAL_CELLS);
@@ -123,6 +123,10 @@ int main(int argc, char **argv)
 				{
 					tetramino_group_rotate(tetramino_group, &map, 1);
 				}
+				else if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_s)
+				{
+					SDL_Log("Hold tetramino");
+				}
 			}
 		}
 
@@ -145,7 +149,7 @@ int main(int argc, char **argv)
 		SDL_RenderPresent(renderer);
 	}
 cleanup4:
-	SDL_FreeWAV(music_buffer);
+	// SDL_FreeWAV(music_buffer);
 	SDL_DestroyRenderer(renderer);
 cleanup3:
 	SDL_DestroyWindow(window);

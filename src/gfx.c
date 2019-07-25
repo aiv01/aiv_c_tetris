@@ -37,28 +37,30 @@ static void _draw_rect_preview(SDL_Renderer *renderer, SDL_Rect *rect, int color
 
 void field_draw(tetris_map_t *tetris_map, SDL_Renderer *renderer)
 {
+    // Background
     SDL_Rect rect;
     rect.x = 0;
+    rect.y = 0;
+    rect.h = CELL_SIZE * HEIGHT;
+    rect.w = CELL_SIZE * (WIDTH + RIGHT_MENU_SIZE + LEFT_MENU_SIZE);
+
+    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+    SDL_RenderFillRect(renderer, &rect);
+
+    // Central part
+    rect.x = CELL_SIZE * LEFT_MENU_SIZE;
     rect.y = 0;
     rect.h = CELL_SIZE * HEIGHT;
     rect.w = CELL_SIZE * WIDTH;
 
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &rect);
-
-    rect.x = CELL_SIZE * WIDTH;
-    rect.y = 0;
-    rect.h = CELL_SIZE * HEIGHT;
-    rect.w = CELL_SIZE * RIGHT_MENU_SIZE;
-
-    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
-    SDL_RenderFillRect(renderer, &rect);
 }
 
 void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer)
 {
     SDL_Rect rect;
-    rect.x = tetramino->x * CELL_SIZE;
+    rect.x = (LEFT_MENU_SIZE + tetramino->x) * CELL_SIZE;
     rect.y = tetramino->y * CELL_SIZE;
     rect.h = CELL_SIZE;
     rect.w = CELL_SIZE;
@@ -68,7 +70,7 @@ void tetramino_draw(TETRAMINO_T, SDL_Renderer *renderer)
 void tetramino_preview_draw(TETRAMINO_T, SDL_Renderer *renderer)
 {
     SDL_Rect rect;
-    rect.x = tetramino->x * CELL_SIZE;
+    rect.x = (LEFT_MENU_SIZE + tetramino->x) * CELL_SIZE;
     rect.y = tetramino->y * CELL_SIZE;
     rect.h = CELL_SIZE;
     rect.w = CELL_SIZE;
@@ -100,7 +102,7 @@ void tetris_map_draw(TETRIS_MAP_T, SDL_Renderer *renderer)
             if (tetris_map->cell[index] != 0)
             {
                 SDL_Rect rect;
-                rect.x = x * CELL_SIZE;
+                rect.x = (LEFT_MENU_SIZE + x) * CELL_SIZE;
                 rect.y = y * CELL_SIZE;
                 rect.h = CELL_SIZE;
                 rect.w = CELL_SIZE;
@@ -118,7 +120,7 @@ void draw_next_pieces(TETRIS_MAP_T, SDL_Renderer *renderer)
 
 void draw_piece_preview(TETRIS_MAP_T, SDL_Renderer *renderer, int index)
 {
-    int start_x = (HORIZONTAL_CELLS + 2) * CELL_SIZE;
+    int start_x = ((HORIZONTAL_CELLS + 2) + LEFT_MENU_SIZE) * CELL_SIZE;
     int start_y = CELL_SIZE + CELL_SIZE * (4 * index);
 
     for (int i = 0; i < TETRAMINI; i++)
