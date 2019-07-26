@@ -1,7 +1,8 @@
 #include "tetris.h"
 
 /* ------------------------------------- TODO ------------------------------------- */
-// * Add the ability to hold one tetramino
+// * Test the ability to hold one tetramino
+// * Use .mp3 music instead of .wav
 // * Add sfx
 // * Maybe I should split tetris.c to multiple files?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
@@ -41,12 +42,12 @@ int main(int argc, char **argv)
 		goto cleanup3;
 	}
 
-	// Uint8 *music_buffer = music_play();
-	// if (!music_buffer)
-	// {
-	// 	SDL_Log("Unable to create music player: %s", SDL_GetError());
-	// 	goto cleanup4;
-	// }
+	Uint8 *music_buffer = music_play();
+	if (!music_buffer)
+	{
+		SDL_Log("Unable to create music player: %s", SDL_GetError());
+		goto cleanup4;
+	}
 
 	tetris_map_t map;
 	tetris_map_init(&map, HORIZONTAL_CELLS, VERTICAL_CELLS);
@@ -150,7 +151,7 @@ int main(int argc, char **argv)
 		SDL_RenderPresent(renderer);
 	}
 cleanup4:
-	// SDL_FreeWAV(music_buffer);
+	SDL_FreeWAV(music_buffer);
 	SDL_DestroyRenderer(renderer);
 cleanup3:
 	SDL_DestroyWindow(window);
