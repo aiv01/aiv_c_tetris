@@ -10,6 +10,7 @@ void tetramino_random_shape_init(TETRAMINI_T, TETRIS_MAP_T)
 {
     tetramino_shape_init(tetramini, tetris_map, QUEUE[QUEUE_ID]);
     tetris_queue_next(tetris_map);
+    tetris_map->can_hold_tetramino = TRUE;
 }
 
 void tetramino_shape_init(TETRAMINI_T, TETRIS_MAP_T, int shape)
@@ -346,7 +347,8 @@ void tetris_map_init(TETRIS_MAP_T, int width, int height)
     HEIGHT = height;
     QUEUE_ID = 0;
 
-    tetris_map->tetramino_hold_type = 0;
+    tetris_map->can_hold_tetramino = 1;
+    tetris_map->tetramino_hold_type = TETRAMINI_SHAPES;
 
     tetris_queue_init(tetris_map);
 }
@@ -475,4 +477,28 @@ int move_down_loop(TETRAMINI_T, TETRIS_MAP_T)
     }
 
     return 0;
+}
+
+void tetramino_hold(TETRAMINI_T, TETRIS_MAP_T)
+{
+    if (tetris_map->can_hold_tetramino == FALSE)
+        return;
+
+    int prev_type = tetris_map->tetramino_hold_type;
+
+    // If previous type is NULL
+    if (prev_type >= TETRAMINI_SHAPES)
+    {
+        // Hold current type and move to the next shape in the queue
+        tetris_map->tetramino_hold_type = tetris_map->tetramino_type;
+        tetramino_random_shape_init(tetramini, tetris_map);
+        tetris_map->can_hold_tetramino = FALSE;
+        return;
+    }
+
+    tetris_map->tetramino_hold_type = tetris_map->tetramino_type;
+
+    tetramino_shape_init(tetramini, tetris_map, prev_type);
+
+    tetris_map->can_hold_tetramino = FALSE;
 }

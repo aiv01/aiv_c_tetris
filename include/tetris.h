@@ -35,6 +35,9 @@
 #define TETRAMINO_OK 0
 #define TETRAMINO_DEAD -1
 
+#define TRUE 1
+#define FALSE 0
+
 // --------------------------
 
 #define TETRAMINI_T tetramino_t tetramini[TETRAMINI]
@@ -301,6 +304,7 @@ struct tetris_map
     int tetramino_current_rot;
     int *tetramino_queue;
     int tetramino_queue_id;
+    int can_hold_tetramino;
     int tetramino_hold_type;
 };
 
@@ -356,5 +360,6 @@ __attribute__((unused)) static int rand_int(int n);
 void shuffle_array(int *array, int n);
 
 int move_down_loop(TETRAMINI_T, TETRIS_MAP_T);
+void tetramino_hold(TETRAMINI_T, TETRIS_MAP_T);
 
 #endif

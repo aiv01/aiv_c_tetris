@@ -125,7 +125,7 @@ int main(int argc, char **argv)
 				}
 				else if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_s)
 				{
-					SDL_Log("Hold tetramino");
+					tetramino_hold(tetramino_group, &map);
 				}
 			}
 		}
@@ -143,9 +143,9 @@ int main(int argc, char **argv)
 		// Tetramino draw
 		tetramino_group_draw(tetramino_group, renderer);
 
-		// Draw previews of next pieces
-		draw_hold_piece(&map, renderer);
-		draw_next_pieces(&map, renderer);
+		// Draw hold piece and queue pieces
+		draw_hold(&map, renderer);
+		draw_queue(&map, renderer);
 
 		SDL_RenderPresent(renderer);
 	}
