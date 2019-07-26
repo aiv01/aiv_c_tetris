@@ -3,6 +3,8 @@
 /* ------------------------------------- TODO ------------------------------------- */
 // * Test the ability to hold one tetramino
 // * Use .mp3 music instead of .wav
+// * Add score
+// * Increase speed over time
 // * Add sfx
 // * Maybe I should split tetris.c to multiple files?
 // * TEST ALL THE THINGS *wink* *wink* Piera *wink* *wink*
