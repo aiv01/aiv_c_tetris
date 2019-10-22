@@ -1,0 +1,33 @@
+language: c
+
+dist: trusty
+
+addons:
+  apt:
+    packages:
+    - libsdl2-dev
+    - cppcheck
+    
+matrix:
+  include:
+  - os: linux
+    compiler: gcc
+    after_success:
+    - tar -zcvf SDL_gpu-bin-linux-gcc.tar.gz lib
+    - tar -zcvf SDL_gpu-docs.tar.gz html
+  - os: linux
+    compiler: clang
+  - os: osx
+    compiler: gcc
+    before_install:
+    - brew update
+    - brew install sdl2
+    - brew install cppcheck
+  - os: osx
+    compiler: clang
+    before_install:
+    - brew update
+    - brew install sdl2
+    - brew install cppcheck
+
+script: make
